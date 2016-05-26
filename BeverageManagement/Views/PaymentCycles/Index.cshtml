@@ -1,0 +1,63 @@
+﻿@model IList<BeverageManagement.Models.EntityModel.History>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a href="@Url.Action("ProcessPayment", "PaymentCycles")" class="btn btn-primary">Pay this Cycle</a>
+</p>
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table bootstrap-table-convert" data-show-columns="true" data-search="true">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Employee.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Employee.IsWorking)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Employee.Cycle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Dated)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.IsWorking)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Cycle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dated)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |*@
+                        @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }) @*|
+                            @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID })*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-center">
+        <ul class="pagination ">
+            @ViewBag.paginationHtml
+        </ul>
+    </div>
+
+}

@@ -1,0 +1,42 @@
+﻿@model BeverageManagement.Models.EntityModel.Config
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Config</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PerCyclePerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PerCyclePerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastEmployeeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastEmployeeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentRunningCycle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentRunningCycle)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ConfigID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
