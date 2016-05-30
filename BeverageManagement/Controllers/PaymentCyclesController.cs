@@ -18,34 +18,22 @@ namespace BeverageManagement.Controllers
 {
     public class PaymentCyclesController : Controller
     {
+        #region Attributes
         private BeverageManagementEntities db = new BeverageManagementEntities();
-        private Logic _logic;
+        private Logic _logic; 
+        #endregion
 
-        // private Logic _logic = new Logic(new BeverageManagementEntities());
-        //public PaymentCyclesController()
-        //{
-        //    Logic _logic = new Logic(db);
-        //}
-        // private PaginationInfo pageInfo;
-
-        // GET: PaymentCycles
-        //private db.employee asd;
-        //private object pagedEmployees;
-        // private PaginationInfo pageInfo;
-
+        #region Constructor
         public PaymentCyclesController()
         {
             _logic = new Logic(db);
-        }
+        } 
+        #endregion
 
-
-
+        #region Process Payment (GET)
         public ActionResult ProcessPayment()
         {
             var config = App.Config;
-
-
-            //employeesIdsList = 1,3,4,5
             bool isCycleChanged;
             var employees = _logic.GetFinalSelectedEmployeesForCycle(config.PerCyclePerson, config.CurrentRunningCycle, out isCycleChanged);
             if (isCycleChanged)
@@ -54,33 +42,20 @@ namespace BeverageManagement.Controllers
                 App.SaveConfig();
             }
             TempData["SelectedEmployees"] = employees;
-
             return View(employees);
-            //Payment(selectedEmployeesForPayment, "Random", "hello!!!you've been selected!!", true);
-            //return View("Index");
-        }
+        } 
+        #endregion
 
+        #region Process Payment (POST)
         [HttpPost, ValidateInput(false)]
-        // [ValidateAntiForgeryToken]
-
         public async Task<ActionResult> ProcessPayment(EmailDetails emailInfo)
         {
 
             var config = App.Config;
             var emailSubject = emailInfo.emailSubject;
             var emailBody = emailInfo.emailBody;
-            //var emailSubject = Request.Form["emailSubject"];
-            //var emailBody = Request.Form["emailBody"];
 
             var selectedEmployeesForPayment = (List<Employee>)TempData["SelectedEmployees"];
-            int debugging = selectedEmployeesForPayment.Count();
-            //if(isConfirmed==false)
-            //{
-            //    return View("Index");
-            //}
-
-
-            // var mailServer = new GmailServer(App.SenderMail, App.SenderPassword);
 
             foreach (var employee in selectedEmployeesForPayment)
             {
@@ -105,7 +80,8 @@ namespace BeverageManagement.Controllers
             }
             return RedirectToAction("Index");
 
-        }
+        } 
+        #endregion
 
         #region Index or List methods
         public ActionResult Index(int page = 1)
