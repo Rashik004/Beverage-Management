@@ -24,12 +24,14 @@ namespace BeverageManagement
                       "~/Scripts/bootstrap-table.js",
                       "~/Scripts/bootstrap-table-filter.js",
                       "~/Scripts/bootstrap-table-export.js",
+                       "~/Content/TinyMce/tinymce.min.js",
                       "~/Scripts/Custom.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
                       "~/Content/bootstrap-table.css",
+                      "~/Content/custom-style.css",
                       "~/Content/site.css"));
         }
     }

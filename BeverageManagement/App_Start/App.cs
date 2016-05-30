@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using BeverageManagement.Models.EntityModel;
-
+using BeverageManagement.Modules.Extensions;
 namespace BeverageManagement.App_Start
 {
     public static class App
@@ -38,17 +38,14 @@ namespace BeverageManagement.App_Start
             }
             set
             {
-                using (var db = new BeverageManagementEntities())
-                {
-                    _config.CurrentRunningCycle = value.CurrentRunningCycle;
-                    _config.LastEmployeeID = value.LastEmployeeID;
-                    _config.PerCyclePerson = value.PerCyclePerson;
-                    db.Entry(_config).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                }
+                value.Save();
+                _config = value;
             }
         }
-
+        public static void SaveConfig()
+        {
+            _config.Save();
+        }
         private static string _senderMail;
         public static string SenderMail
         {

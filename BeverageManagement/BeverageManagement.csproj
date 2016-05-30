@@ -167,6 +167,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BusinessLogic\Logic.cs" />
+    <Compile Include="BusinessLogic\Mailer.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigsController.cs" />
@@ -190,8 +192,10 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Modules\Extensions\ConfigExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\EmailDetails.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\BeverageManagement.mdf" />
@@ -203,6 +207,24 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\---bootstrap.min.css" />
+    <Content Include="Content\custom-style.css">
+      <DependentUpon>custom-style.less</DependentUpon>
+    </Content>
+    <Content Include="Content\custom-style.min.css">
+      <DependentUpon>custom-style.css</DependentUpon>
+    </Content>
+    <Content Include="Content\TinyMce\Skins\lightgray\content.inline.min.css" />
+    <Content Include="Content\TinyMce\Skins\lightgray\content.min.css" />
+    <Content Include="Content\TinyMce\Skins\lightgray\fonts\tinymce-small.svg" />
+    <Content Include="Content\TinyMce\Skins\lightgray\fonts\tinymce.svg" />
+    <Content Include="Content\TinyMce\Skins\lightgray\img\anchor.gif" />
+    <Content Include="Content\TinyMce\Skins\lightgray\img\loader.gif" />
+    <Content Include="Content\TinyMce\Skins\lightgray\img\object.gif" />
+    <Content Include="Content\TinyMce\Skins\lightgray\img\trans.gif" />
+    <Content Include="Content\TinyMce\Skins\lightgray\skin.ie7.min.css" />
+    <Content Include="Content\TinyMce\Skins\lightgray\skin.min.css" />
+    <Content Include="Content\TinyMce\themes\modern\theme.min.js" />
+    <Content Include="Content\TinyMce\tinymce.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -218,6 +240,16 @@
     </EntityDeploy>
     <Content Include="Models\EntityModel\BeverageModel.edmx.diagram">
       <DependentUpon>BeverageModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Content\TinyMce\Skins\lightgray\fonts\tinymce-small.eot" />
+    <Content Include="Content\TinyMce\Skins\lightgray\fonts\tinymce-small.ttf" />
+    <Content Include="Content\TinyMce\Skins\lightgray\fonts\tinymce-small.woff" />
+    <Content Include="Content\TinyMce\Skins\lightgray\fonts\tinymce.eot" />
+    <Content Include="Content\TinyMce\Skins\lightgray\fonts\tinymce.ttf" />
+    <Content Include="Content\TinyMce\Skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Content\custom-style.less" />
+    <Content Include="Content\custom-style.css.map">
+      <DependentUpon>custom-style.css</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom.js" />
@@ -552,9 +584,7 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BusinessLogic\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
