@@ -15,6 +15,9 @@ namespace BeverageManagement.BusinessLogic
         {
             this.db = db;
         }
+
+
+        #region Get Final Selected Employee For Current Cycle
         /// <summary>
         /// Returns all the employees selected for payment in this cycle, if a new Cycle is created, boolIsCycleOver is true, otherwise false.
         /// </summary>
@@ -33,7 +36,11 @@ namespace BeverageManagement.BusinessLogic
                 selectedEmployeesForPayment = selectedEmployeesForPayment.Concat(NewlySelectedEmployeesForPayment).ToList();
             }
             return selectedEmployeesForPayment;
-        }
+        } 
+        #endregion
+
+
+        #region Get Employees To Be Selected in Current Cycle
         /// <summary>
         /// tries to get next batch of employees who's current running cycle is less than the actual running cycle
         /// </summary>
@@ -49,8 +56,11 @@ namespace BeverageManagement.BusinessLogic
                         .OrderBy(n => n.EmployeeID)
                         .GetPageData(pageInfo).ToList();
             return pagedEmployees;
-        }
+        } 
+        #endregion
 
+
+        #region Pagination
         public PaginationInfo GetPageInfo(int perCyclePerson, int pageNumber)
         {
             var pageInfo = new PaginationInfo
@@ -59,7 +69,8 @@ namespace BeverageManagement.BusinessLogic
                 PageNumber = pageNumber,
             };
             return pageInfo;
-        }
+        } 
+        #endregion
 
     }
 }
