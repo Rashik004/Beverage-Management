@@ -16,7 +16,7 @@ namespace BeverageManagement.BusinessLogic
             this.db = db;
         }
         /// <summary>
-        /// dwwddwwd
+        /// Returns all the employees selected for payment in this cycle, if a new Cycle is created, boolIsCycleOver is true, otherwise false.
         /// </summary>
         /// <param name="peopleInCycle"></param>
         /// <param name="currentCycle"></param>
@@ -34,7 +34,12 @@ namespace BeverageManagement.BusinessLogic
             }
             return selectedEmployeesForPayment;
         }
-
+        /// <summary>
+        /// tries to get next batch of employees who's current running cycle is less than the actual running cycle
+        /// </summary>
+        /// <param name="expectedNumberOfEmployee"></param>
+        /// <param name="currentRunningCycle"></param>
+        /// <returns></returns>
         private List<Employee> GetEmployeesInCurrentCycle(int expectedNumberOfEmployee, int currentRunningCycle)
         {
             var employees = db.Employees;
