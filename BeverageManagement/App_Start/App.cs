@@ -48,5 +48,23 @@ namespace BeverageManagement.App_Start
                 }
             }
         }
+
+        private static string _senderMail;
+        public static string SenderMail
+        {
+            get
+            {
+                return "rhasnatauto@gmail.com";
+            }
+        }
+
+        private static string _senderPassword;
+        public static string SenderPassword 
+        { 
+            get 
+            {
+                return "rashik1234";
+            } 
+        }
     }
 }

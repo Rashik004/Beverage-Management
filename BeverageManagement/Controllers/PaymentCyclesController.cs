@@ -9,6 +9,9 @@ using System.Web.Mvc;
 using BeverageManagement.Models.EntityModel;
 using BeverageManagement.App_Start;
 using DevMvcComponent.Pagination;
+using DevMvcComponent.Mail;
+using System.Threading.Tasks;
+
 namespace BeverageManagement.Controllers
 {
     public class PaymentCyclesController : Controller
@@ -20,7 +23,7 @@ namespace BeverageManagement.Controllers
         //private db.employee asd;
         //private object pagedEmployees;
        // private PaginationInfo pageInfo;
-        
+ 
         private PaginationInfo GetPageInfo(int perCyclePerson, int pageNumber)
         {
             var pageInfo = new PaginationInfo
@@ -32,50 +35,162 @@ namespace BeverageManagement.Controllers
             return pageInfo;
         }
 
-        private int SelectEmployeeForPayment(int expectedNumberOfEmployee, int currentRunningCycle)
+        //private int SelectEmployeeForPayment(int expectedNumberOfEmployee, int currentRunningCycle)
+        //{
+        //    var employees = db.Employees;
+        //    var pageInfo = GetPageInfo(expectedNumberOfEmployee, 1);
+        //    var pagedEmployees = employees
+        //                .Where(e => e.Cycle < currentRunningCycle && e.IsWorking == true)
+        //                .OrderBy(n => n.EmployeeID)
+        //                .GetPageData(pageInfo).ToList();
+        //    Console.WriteLine(pagedEmployees.GetType());
+        //    var deb = pagedEmployees.GetType();
+        //    foreach (var employee in pagedEmployees)
+        //    {
+
+        //        employee.Cycle++;
+        //        try
+        //        {
+        //            if (ModelState.IsValid)
+        //            {
+        //                db.Entry(employee).State = System.Data.Entity.EntityState.Modified;
+        //                History history = new History();
+        //                history.EmployeeID = employee.EmployeeID;
+        //                history.Dated = DateTime.Now;
+        //                db.Histories.Add(history);
+        //            }
+        //        }
+        //        catch
+        //        {
+        //            throw new Exception("We can't save the modified data.");
+        //        }
+        //    }
+        //    db.SaveChanges();
+        //    return pagedEmployees.Count();
+        //}
+
+        private List<Employee> SelectEmployeesForPayment(int expectedNumberOfEmployee, int currentRunningCycle)
         {
             var employees = db.Employees;
             var pageInfo = GetPageInfo(expectedNumberOfEmployee, 1);
             var pagedEmployees = employees
-                        .Where(e => e.Cycle < currentRunningCycle && e.IsWorking==true)
+                        .Where(e => e.Cycle < currentRunningCycle && e.IsWorking == true)
                         .OrderBy(n => n.EmployeeID)
                         .GetPageData(pageInfo).ToList();
 
-            foreach (var employee in pagedEmployees)
-            {
 
-                employee.Cycle++;
-                try
-                {
-                    if (ModelState.IsValid)
-                    {
-                        db.Entry(employee).State = System.Data.Entity.EntityState.Modified;
-                        History history = new History();
-                        history.EmployeeID = employee.EmployeeID;
-                        history.Dated = DateTime.Now;
-                        db.Histories.Add(history);
-                    }
-                }
-                catch
-                {
-                    throw new Exception("We can't save the modified data.");
-                }
-            }
-            db.SaveChanges();
-            return pagedEmployees.Count();
+            return pagedEmployees;
         }
+
         public ActionResult ProcessPayment()
         {
             var config = App.Config;
-            int employeeSelectedInThisWeek=SelectEmployeeForPayment(config.PerCyclePerson, config.CurrentRunningCycle);
-            if(employeeSelectedInThisWeek<config.PerCyclePerson)
+            
+            var selectedEmployeesForPayment = SelectEmployeesForPayment(config.PerCyclePerson, config.CurrentRunningCycle);
+            int debugging = selectedEmployeesForPayment.Count();
+            if (selectedEmployeesForPayment.Count()< config.PerCyclePerson)
             {
                 config.CurrentRunningCycle++;
                 App.Config = config;
-                SelectEmployeeForPayment(config.PerCyclePerson-employeeSelectedInThisWeek, config.CurrentRunningCycle);
+                var NewlySelectedEmployeesForPayment= SelectEmployeesForPayment(config.PerCyclePerson-selectedEmployeesForPayment.Count(), config.CurrentRunningCycle);
+                selectedEmployeesForPayment = selectedEmployeesForPayment.Concat(NewlySelectedEmployeesForPayment).ToList();
             }
+
+            return View(selectedEmployeesForPayment);
+            //Payment(selectedEmployeesForPayment, "Random", "hello!!!you've been selected!!", true);
+            //return View("Index");
+        }
+        //private void Payment(List<Employee> selectedEmployeesForPayment, string emailSubject, string emailBody, bool isConfirmed=true)
+        //{
+        //    if (isConfirmed == false)
+        //    {
+        //       // return View("Index");
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        var mailServer = new GmailServer(App.SenderMail, App.SenderPassword);
+
+        //        foreach (var employee in selectedEmployeesForPayment)
+        //        {
+
+        //            employee.Cycle++;
+        //            try
+        //            {
+        //                if (ModelState.IsValid)
+        //                {
+        //                    db.Entry(employee).State = System.Data.Entity.EntityState.Modified;
+        //                    History history = new History();
+        //                    history.EmployeeID = employee.EmployeeID;
+        //                    history.Dated = DateTime.Now;
+        //                    mailServer.QuickSend(employee.Email, emailSubject, emailBody);
+        //                    db.Histories.Add(history);
+
+        //                }                        
+        //            }
+        //            catch
+        //            {
+        //                throw new Exception("We can't save the modified data.");
+        //            }
+                    
+        //        }
+        //        db.SaveChanges();
+        //       // return View("Index");
+        //    }
+
+        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<ActionResult> ProcessPayment( bool isConfirmed=true)
+        {
+
+            var config = App.Config;
+            var emailSubject = Request.Form["emailSubject"];
+            var emailBody = Request.Form["emailBody"];
+
+            var selectedEmployeesForPayment = SelectEmployeesForPayment(config.PerCyclePerson, config.CurrentRunningCycle);
+            int debugging = selectedEmployeesForPayment.Count();
+            if (selectedEmployeesForPayment.Count() < config.PerCyclePerson)
+            {
+                config.CurrentRunningCycle++;
+                App.Config = config;
+                var NewlySelectedEmployeesForPayment = SelectEmployeesForPayment(config.PerCyclePerson - selectedEmployeesForPayment.Count(), config.CurrentRunningCycle);
+                selectedEmployeesForPayment = selectedEmployeesForPayment.Concat(NewlySelectedEmployeesForPayment).ToList();
+            }
+            if(isConfirmed==false)
+            {
+                return View("Index");
+            }
+            else
+            {
+                var mailServer = new GmailServer(App.SenderMail, App.SenderPassword);
+
+                foreach (var employee in selectedEmployeesForPayment)
+                {
                      
-            return RedirectToAction("Index");
+                    employee.Cycle++;
+                    try
+                    {
+                        if (ModelState.IsValid)
+                        {
+                            db.Entry(employee).State = System.Data.Entity.EntityState.Modified;
+                            History history = new History();
+                            history.EmployeeID = employee.EmployeeID;
+                            history.Dated = DateTime.Now;
+                            db.Histories.Add(history);
+                           // mailServer.QuickSend(employee.Email, emailSubject, emailBody);
+                        }
+                    }
+                    catch
+                    {
+                        throw new Exception("We can't save the modified data.");
+                    }
+                }
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            
         }
         public ActionResult Index(int page = 1)
         {
