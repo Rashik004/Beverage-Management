@@ -4,15 +4,25 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BeverageManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BeverageManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Config">
           <Key>
             <PropertyRef Name="ConfigID" />
           </Key>
           <Property Name="ConfigID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PerCyclePerson" Type="int" Nullable="false" />
-          <Property Name="LastEmployeeID" Type="int" Nullable="false" />
           <Property Name="CurrentRunningCycle" Type="int" Nullable="false" />
+          <Property Name="ServerEmailSender" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ServerEmailSenderPassword" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ServerSmtpPort" Type="int" Nullable="false" />
+          <Property Name="ServerSmtpHost" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="DevelopersEmails" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="AdminEmails" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="DefaultBeveragePrice" Type="float" Nullable="false" />
+          <Property Name="DefaultEmailFooter" Type="varchar" MaxLength="2000" Nullable="false" />
+          <Property Name="DefaultEmailBody" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EmailTemplateLocation" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="SiteName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -47,6 +57,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="ResetDatabase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="BeverageManagementModelStoreContainer">
           <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
@@ -56,30 +67,49 @@
             <End Role="History" EntitySet="History" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BeverageManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BeverageManagementEntities" annotation:LazyLoadingEnabled="false">
+          <FunctionImport Name="ResetDatabase" />
+          <EntitySet Name="Configs" EntityType="BeverageManagementModel.Config" />
+          <EntitySet Name="Employees" EntityType="BeverageManagementModel.Employee" />
+          <EntitySet Name="Histories" EntityType="BeverageManagementModel.History" />
+          <AssociationSet Name="FK_History_Employee" Association="BeverageManagementModel.FK_History_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="History" EntitySet="Histories" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Config">
           <Key>
             <PropertyRef Name="ConfigID" />
           </Key>
           <Property Name="ConfigID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PerCyclePerson" Type="Int32" Nullable="false" />
-          <Property Name="LastEmployeeID" Type="Int32" Nullable="false" />
           <Property Name="CurrentRunningCycle" Type="Int32" Nullable="false" />
+          <Property Name="ServerEmailSender" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ServerEmailSenderPassword" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ServerSmtpPort" Type="Int32" Nullable="false" />
+          <Property Name="ServerSmtpHost" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="DevelopersEmails" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AdminEmails" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DefaultBeveragePrice" Type="Double" Nullable="false" />
+          <Property Name="DefaultEmailFooter" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="DefaultEmailBody" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailTemplateLocation" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SiteName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="EmployeeID" />
           </Key>
           <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsWorking" Type="Boolean" Nullable="false" />
           <Property Name="Cycle" Type="Int32" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Histories" Relationship="Self.FK_History_Employee" FromRole="Employee" ToRole="History" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Histories" Relationship="BeverageManagementModel.FK_History_Employee" FromRole="Employee" ToRole="History" />
         </EntityType>
         <EntityType Name="History">
           <Key>
@@ -91,11 +121,11 @@
           <Property Name="Week" Type="Int32" Nullable="false" />
           <Property Name="Year" Type="Int32" Nullable="false" />
           <Property Name="Month" Type="Int32" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_History_Employee" FromRole="History" ToRole="Employee" />
+          <NavigationProperty Name="Employee" Relationship="BeverageManagementModel.FK_History_Employee" FromRole="History" ToRole="Employee" />
         </EntityType>
         <Association Name="FK_History_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <End Type="BeverageManagementModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="BeverageManagementModel.History" Role="History" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="EmployeeID" />
@@ -105,51 +135,53 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BeverageManagementEntities" annotation:LazyLoadingEnabled="false">
-          <EntitySet Name="Configs" EntityType="Self.Config" />
-          <EntitySet Name="Employees" EntityType="Self.Employee" />
-          <EntitySet Name="Histories" EntityType="Self.History" />
-          <AssociationSet Name="FK_History_Employee" Association="Self.FK_History_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="History" EntitySet="Histories" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BeverageManagementModelStoreContainer" CdmEntityContainer="BeverageManagementEntities">
+          <FunctionImportMapping FunctionImportName="ResetDatabase" FunctionName="BeverageManagementModel.Store.ResetDatabase" />
           <EntitySetMapping Name="Configs">
             <EntityTypeMapping TypeName="BeverageManagementModel.Config">
               <MappingFragment StoreEntitySet="Config">
-                <ScalarProperty Name="ConfigID" ColumnName="ConfigID" />
-                <ScalarProperty Name="PerCyclePerson" ColumnName="PerCyclePerson" />
-                <ScalarProperty Name="LastEmployeeID" ColumnName="LastEmployeeID" />
+                <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+                <ScalarProperty Name="EmailTemplateLocation" ColumnName="EmailTemplateLocation" />
+                <ScalarProperty Name="DefaultEmailBody" ColumnName="DefaultEmailBody" />
+                <ScalarProperty Name="DefaultEmailFooter" ColumnName="DefaultEmailFooter" />
+                <ScalarProperty Name="DefaultBeveragePrice" ColumnName="DefaultBeveragePrice" />
+                <ScalarProperty Name="AdminEmails" ColumnName="AdminEmails" />
+                <ScalarProperty Name="DevelopersEmails" ColumnName="DevelopersEmails" />
+                <ScalarProperty Name="ServerSmtpHost" ColumnName="ServerSmtpHost" />
+                <ScalarProperty Name="ServerSmtpPort" ColumnName="ServerSmtpPort" />
+                <ScalarProperty Name="ServerEmailSenderPassword" ColumnName="ServerEmailSenderPassword" />
+                <ScalarProperty Name="ServerEmailSender" ColumnName="ServerEmailSender" />
                 <ScalarProperty Name="CurrentRunningCycle" ColumnName="CurrentRunningCycle" />
+                <ScalarProperty Name="PerCyclePerson" ColumnName="PerCyclePerson" />
+                <ScalarProperty Name="ConfigID" ColumnName="ConfigID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="BeverageManagementModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IsWorking" ColumnName="IsWorking" />
-                <ScalarProperty Name="Cycle" ColumnName="Cycle" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Cycle" ColumnName="Cycle" />
+                <ScalarProperty Name="IsWorking" ColumnName="IsWorking" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Histories">
             <EntityTypeMapping TypeName="BeverageManagementModel.History">
               <MappingFragment StoreEntitySet="History">
-                <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="Dated" ColumnName="Dated" />
-                <ScalarProperty Name="Week" ColumnName="Week" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Dated" ColumnName="Dated" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

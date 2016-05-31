@@ -1,4 +1,5 @@
 ﻿using BeverageManagement.Models.EntityModel;
+using DevMvcComponent.Mail;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,9 @@ namespace BeverageManagement.Modules.Extensions
                 db.Entry(config).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
+            var mailServer = new CustomMailServer(config.ServerEmailSender, config.ServerEmailSenderPassword, config.ServerSmtpHost, config.ServerSmtpPort);
+            DevMvcComponent.Mvc.Setup(config.SiteName, config.DevelopersEmails, System.Reflection.Assembly.GetExecutingAssembly(), mailServer);
+            GC.Collect();
         }
 
     }

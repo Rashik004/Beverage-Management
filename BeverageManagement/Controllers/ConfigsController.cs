@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BeverageManagement.Models.EntityModel;
-using BeverageManagement.App_Start;
 
 namespace BeverageManagement.Controllers
 {

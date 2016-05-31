@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BeverageManagement.Models.EntityModel;
-using BeverageManagement.App_Start;
 using DevMvcComponent.Pagination;
 using DevMvcComponent.Mail;
 using System.Threading.Tasks;
@@ -20,14 +19,14 @@ namespace BeverageManagement.Controllers
     {
         #region Attributes
         private BeverageManagementEntities db = new BeverageManagementEntities();
-        private Logic _logic; 
+        private Logic _logic;
         #endregion
 
         #region Constructor
         public PaymentCyclesController()
         {
             _logic = new Logic(db);
-        } 
+        }
         #endregion
 
         #region Process Payment (GET)
@@ -43,7 +42,7 @@ namespace BeverageManagement.Controllers
             }
             TempData["SelectedEmployees"] = employees;
             return View(employees);
-        } 
+        }
         #endregion
 
         #region Process Payment (POST)
@@ -54,7 +53,7 @@ namespace BeverageManagement.Controllers
             var config = App.Config;
             var emailSubject = emailInfo.emailSubject;
             var emailBody = emailInfo.emailBody;
-
+            emailBody = emailBody.Replace("$amount", App.Amount.ToString());
             var selectedEmployeesForPayment = (List<Employee>)TempData["SelectedEmployees"];
 
             foreach (var employee in selectedEmployeesForPayment)
@@ -67,7 +66,7 @@ namespace BeverageManagement.Controllers
                     history.EmployeeID = employee.EmployeeID;
                     history.Dated = DateTime.Now;
                     db.Histories.Add(history);
-                    await Mailer.SendAsync(employee.Email, emailSubject, emailBody);
+                    await Mailer.SendAsync(employee.Email, emailSubject, emailBody.Replace("$name", employee.Name));
                 }
             }
             try
@@ -80,7 +79,7 @@ namespace BeverageManagement.Controllers
             }
             return RedirectToAction("Index");
 
-        } 
+        }
         #endregion
 
         #region Index or List methods

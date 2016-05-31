@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using BeverageManagement.Models;
 using BeverageManagement.Models.EntityModel;
-using BeverageManagement.App_Start;
+using DevMvcComponent;
 namespace BeverageManagement.Controllers
 {
     public class EmployeesController : Controller

@@ -8,6 +8,8 @@ namespace BeverageManagement
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+
+            var cssPath = "~/Content/css/";
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -29,10 +31,21 @@ namespace BeverageManagement
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.min.css",
-                      "~/Content/bootstrap-table.css",
-                      "~/Content/custom-style.css",
-                      "~/Content/site.css"));
+                      cssPath + "bootstrap.min.css",
+                      cssPath + "bootstrap-table.css",
+                      cssPath + "font-awesome.css",
+                      cssPath + "custom-style.css",
+                      cssPath + "site.css"));
+
+#if DEBUG
+            BundleTable.EnableOptimizations = false;
+            bundles.UseCdn = false;
+#else
+            BundleTable.EnableOptimizations = true;
+            bundles.UseCdn = true;
+#endif
+
+
         }
     }
 }

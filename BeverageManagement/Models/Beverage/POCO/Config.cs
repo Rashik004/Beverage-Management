@@ -11,12 +11,26 @@ namespace BeverageManagement.Models.EntityModel
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Config
     {
         public byte ConfigID { get; set; }
+        [Display(Name="Per Person In Cycle")]
         public int PerCyclePerson { get; set; }
-        public int LastEmployeeID { get; set; }
+        [Display(Name = "Current Running Cycle")]
         public int CurrentRunningCycle { get; set; }
+        [Display(Name = "Server Email")]
+        public string ServerEmailSender { get; set; }
+        public string ServerEmailSenderPassword { get; set; }
+        public int ServerSmtpPort { get; set; }
+        public string ServerSmtpHost { get; set; }
+        public string DevelopersEmails { get; set; }
+        public string AdminEmails { get; set; }
+        public double DefaultBeveragePrice { get; set; }
+        public string DefaultEmailFooter { get; set; }
+        public string DefaultEmailBody { get; set; }
+        public string EmailTemplateLocation { get; set; }
+        public string SiteName { get; set; }
     }
 }

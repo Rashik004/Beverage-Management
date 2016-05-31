@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using BeverageManagement.Models.EntityModel;
 using BeverageManagement.Modules.Extensions;
-namespace BeverageManagement.App_Start
+namespace BeverageManagement
 {
     public static class App
     {
@@ -26,8 +26,18 @@ namespace BeverageManagement.App_Start
                             _config = new Config()
                             {
                                 CurrentRunningCycle = 1,
-                                LastEmployeeID = 0,
-                                PerCyclePerson = 10
+                                PerCyclePerson = 10,
+                                AdminEmails = "admin1@site.com, admin2@site.com",
+                                DefaultEmailBody = "Hello $name,<br /><br />You've been selected for payment of this cycle. Please pay the amount of tk $amount by this month.",
+                                DefaultEmailFooter = "Thanks and regards,<br /><b>Administration</b><br />Site.com<br />Company<br />",
+                                DevelopersEmails = "developer1@site.com,developer2@site.com",
+                                EmailTemplateLocation = "EmailTemplate\\mail.cshtml",
+                                ServerSmtpHost = "smtp.gmail.com",
+                                ServerSmtpPort = 587,
+                                ServerEmailSender = "senderemail@site.com",
+                                ServerEmailSenderPassword = "default-password",
+                                SiteName = "Site.com"
+                                
                             };
                             db.Configs.Add(_config);
                             db.SaveChanges();
@@ -62,6 +72,15 @@ namespace BeverageManagement.App_Start
             {
                 return "rashik1234";
             } 
+        }
+
+        private static int _amount;
+        public static int Amount 
+        { 
+            get
+            {
+                return 120;
+            }
         }
     }
 }

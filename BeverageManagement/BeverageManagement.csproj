@@ -45,6 +45,9 @@
     <Reference Include="FluentScheduler">
       <HintPath>..\packages\FluentScheduler.4.1.0\lib\net40\FluentScheduler.dll</HintPath>
     </Reference>
+    <Reference Include="FontAwesomeIcons">
+      <HintPath>..\packages\FontAwesomeIcons.1.0.3\lib\FontAwesomeIcons.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -169,8 +172,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="BusinessLogic\Logic.cs" />
     <Compile Include="BusinessLogic\Mailer.cs" />
-    <Compile Include="BusinessLogic\MailScheduler.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="Scheduler\MailScheduler.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
@@ -195,6 +197,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Modules\Extensions\ConfigExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scheduler\MailingJob.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\EmailDetails.cs" />
   </ItemGroup>
@@ -203,18 +206,21 @@
     <Content Include="App_Data\BeverageManagement_log.ldf">
       <DependentUpon>BeverageManagement.mdf</DependentUpon>
     </Content>
-    <Content Include="BusinessLogic\mailToAdmin.html" />
-    <Content Include="Content\bootstrap-table.css" />
-    <Content Include="Content\bootstrap-table.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\---bootstrap.min.css" />
-    <Content Include="Content\custom-style.css">
-      <DependentUpon>custom-style.less</DependentUpon>
-    </Content>
-    <Content Include="Content\custom-style.min.css">
+    <Content Include="MailTemplate\mailToAdmin.html" />
+    <Content Include="Content\css\bootstrap-table.css" />
+    <Content Include="Content\css\bootstrap-table.min.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\---bootstrap.min.css" />
+    <Content Include="Content\css\custom-style.css" />
+    <Content Include="Content\css\custom-style.min.css">
       <DependentUpon>custom-style.css</DependentUpon>
     </Content>
+    <Content Include="Content\css\font-awesome.css" />
+    <Content Include="Content\css\font-awesome.min.css">
+      <DependentUpon>font-awesome.css</DependentUpon>
+    </Content>
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\TinyMce\Skins\lightgray\content.inline.min.css" />
     <Content Include="Content\TinyMce\Skins\lightgray\content.min.css" />
     <Content Include="Content\TinyMce\Skins\lightgray\fonts\tinymce-small.svg" />
@@ -230,7 +236,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\css\Site.css" />
     <Content Include="Scripts\bootstrap-table-export.js" />
     <Content Include="Scripts\bootstrap-table-filter.js" />
     <Content Include="Scripts\bootstrap-table.js" />
@@ -249,10 +255,45 @@
     <Content Include="Content\TinyMce\Skins\lightgray\fonts\tinymce.eot" />
     <Content Include="Content\TinyMce\Skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Content\TinyMce\Skins\lightgray\fonts\tinymce.woff" />
-    <Content Include="Content\custom-style.less" />
-    <Content Include="Content\custom-style.css.map">
+    <Content Include="Content\less\custom-style.less" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\less\font-awesome\animated.less" />
+    <Content Include="Content\less\font-awesome\bordered-pulled.less" />
+    <Content Include="Content\less\font-awesome\core.less" />
+    <Content Include="Content\less\font-awesome\fixed-width.less" />
+    <Content Include="Content\less\font-awesome.less" />
+    <Content Include="Content\less\font-awesome\icons.less" />
+    <Content Include="Content\less\font-awesome\larger.less" />
+    <Content Include="Content\less\font-awesome\list.less" />
+    <Content Include="Content\less\font-awesome\mixins.less" />
+    <Content Include="Content\less\font-awesome\path.less" />
+    <Content Include="Content\less\font-awesome\rotated-flipped.less" />
+    <Content Include="Content\less\font-awesome\screen-reader.less" />
+    <Content Include="Content\less\font-awesome\stacked.less" />
+    <Content Include="Content\less\font-awesome\variables.less" />
+    <Content Include="Content\css\font-awesome.css.map">
+      <DependentUpon>font-awesome.css</DependentUpon>
+    </Content>
+    <Content Include="Content\css\custom-style.css.map">
       <DependentUpon>custom-style.css</DependentUpon>
     </Content>
+    <Content Include="Content\Scss\FontAwesome\font-awesome.scss" />
+    <Content Include="Content\Scss\FontAwesome\_variables.scss" />
+    <Content Include="Content\Scss\FontAwesome\_stacked.scss" />
+    <Content Include="Content\Scss\FontAwesome\_rotated-flipped.scss" />
+    <Content Include="Content\Scss\FontAwesome\_path.scss" />
+    <Content Include="Content\Scss\FontAwesome\_mixins.scss" />
+    <Content Include="Content\Scss\FontAwesome\_list.scss" />
+    <Content Include="Content\Scss\FontAwesome\_larger.scss" />
+    <Content Include="Content\Scss\FontAwesome\_icons.scss" />
+    <Content Include="Content\Scss\FontAwesome\_fixed-width.scss" />
+    <Content Include="Content\Scss\FontAwesome\_core.scss" />
+    <Content Include="Content\Scss\FontAwesome\_bordered-pulled.scss" />
+    <Content Include="Content\Scss\FontAwesome\_animated.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -575,6 +616,8 @@
     <Content Include="Views\Configs\Index.cshtml" />
     <Content Include="Views\PaymentCycles\ProcessPayment.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_jquery_full.cshtml" />
+    <Content Include="Views\PaymentCycles\_EmailEditor.cshtml" />
+    <Content Include="Views\PaymentCycles\_ListOfEmployees.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

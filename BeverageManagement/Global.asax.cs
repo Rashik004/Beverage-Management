@@ -16,14 +16,15 @@ namespace BeverageManagement
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            JobManager.Initialize(new MailScheduler()); 
+            JobManager.Initialize(new MailScheduler());
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             //Mvc.Mailer.QuickSend();
-            var mailServer = new GmailServer("rhasnatauto@gmail.com", "rashik1234");
-            DevMvcComponent.Mvc.Setup("Beverage Management","rhasnat93@gmail.com",System.Reflection.Assembly.GetExecutingAssembly(), mailServer);
-            JobManager.Initialize(new MailScheduler()); 
+            var config = App.Config;
+            var mailServer = new CustomMailServer(config.ServerEmailSender, config.ServerEmailSenderPassword, config.ServerSmtpHost, config.ServerSmtpPort);
+            DevMvcComponent.Mvc.Setup(config.SiteName, config.DevelopersEmails, System.Reflection.Assembly.GetExecutingAssembly(), mailServer);
+            JobManager.Initialize(new MailScheduler());
         }
     }
 }

@@ -1,114 +1,30 @@
 ﻿@model IEnumerable<BeverageManagement.Models.EntityModel.Employee>
 
 @{
-    ViewBag.Title = "ProcessPayment";
+    ViewBag.Title = "Process Payment";
     string employeesIdsList = ViewBag.employeesIdsList;
+    ViewBag.employeesListHtml = Html.Partial("_ListOfEmployees");
+    ViewBag.token = Html.AntiForgeryToken();
 }
-
-<h2>ProcessPayment</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsWorking)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cycle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsWorking)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cycle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-
-        </tr>
-    }
-
-</table>
-
-
+<h2>@ViewBag.Title</h2>
+@ViewBag.employeesListHtml
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Employee</h4>
-        <hr />
-
-        @*@Html.Hidden("empoyeesIds", employeesIdsList)*@
-        <label>Subject</label>
-        <input type="text" class="form-control full-width" name="emailSubject" value="Payment of Beverage"><br>
-
-        <label>Body</label>
-        <textarea class="tinymce" name="emailBody">
-            Hello $name,<br />
-            You've been selected for payment of this cycle. Please pay the amount of tk 200 by this month.
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Cycle)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Email)
-                    </th>
-
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Cycle)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-
-                    </tr>
-                }
-
-            </table>
-            Thanks and regards,<br />
-            <b>Rashik Hasnat</b><br />
-            Software Engineer<br />
-            Relisource Technologies Ltd.<br />
-        </textarea>
-
-
-
-        <div class="form-group">
-            <div class=" col-md-10">
-                <input type="submit" value="Send Email" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        <div class=" col-md-12">
+            <button class="full-width btn-success btn">
+                <i class="@FaIcons.Send"></i>
+                Send Email
+            </button>
         </div>
     </div>
-
+    @Html.Partial("_EmailEditor")
+    <div class="form-group">
+        <div class=" col-md-12">
+            <button class="full-width btn-success btn">
+                <i class="@FaIcons.Send"></i>
+                Send Email
+            </button>
+        </div>
+    </div>
 }
