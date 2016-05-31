@@ -10,6 +10,13 @@ namespace BeverageManagement.BusinessLogic
 {
     public static class Mailer
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="to"></param>
+        /// <param name="subject"></param>
+        /// <param name="body"></param>
+        /// <returns></returns>
         public static async Task SendAsync(string to, string subject, string body)
         {
             await Task.Factory.StartNew(() =>

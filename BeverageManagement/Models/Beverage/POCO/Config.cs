@@ -16,21 +16,44 @@ namespace BeverageManagement.Models.EntityModel
     public partial class Config
     {
         public byte ConfigID { get; set; }
+
         [Display(Name="Per Person In Cycle")]
         public int PerCyclePerson { get; set; }
+
         [Display(Name = "Current Running Cycle")]
         public int CurrentRunningCycle { get; set; }
+
         [Display(Name = "Server Email")]
         public string ServerEmailSender { get; set; }
+
+        [Display(Name = "Server Email Sender Password")]
         public string ServerEmailSenderPassword { get; set; }
+
+        [Display(Name = "Server Smtp Port")]
         public int ServerSmtpPort { get; set; }
+
+        [Display(Name = "Server Smtp Host")]
         public string ServerSmtpHost { get; set; }
+
+        [Display(Name = "Developer's Email")]
         public string DevelopersEmails { get; set; }
+
+        [Display(Name = "Admin Email")]
         public string AdminEmails { get; set; }
+
+        [Display(Name = "Default Beverage Price")]
         public double DefaultBeveragePrice { get; set; }
+
+        [Display(Name = "Default Email Footer")]
         public string DefaultEmailFooter { get; set; }
+
+        [Display(Name = "Default Email Body")]
         public string DefaultEmailBody { get; set; }
+
+        [Display(Name = "Email Template Location")]
         public string EmailTemplateLocation { get; set; }
+
+        [Display(Name = "Site Name")]
         public string SiteName { get; set; }
     }
 }

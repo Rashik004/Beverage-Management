@@ -6,6 +6,7 @@
     tinymce.init({
         selector: '.tinymce',
         height: 500,
+        menubar: false,
 
         toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
         content_css: [

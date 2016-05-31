@@ -22,3 +22,10 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*.checking .mce-edit-area {
+    max-height: 111px;
+}*/
+.small-editor .mce-edit-area iframe {
+    max-height: 200px !important;
+}

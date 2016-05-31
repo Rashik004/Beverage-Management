@@ -6,7 +6,6 @@
 
 <h2>Edit</h2>
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -17,6 +16,37 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ConfigID)
 
+        <!-- #region Site Name -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.SiteName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SiteName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SiteName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- #endregion -->
+
+        <!-- #region Default Email Body -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.DefaultEmailBody, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6 small-editor">
+                @Html.TextAreaFor(model => model.DefaultEmailBody, htmlAttributes: new { @Class = "tinymce" })
+                @Html.ValidationMessageFor(model => model.DefaultEmailBody, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- #endregion -->
+
+        <!-- #region Default Email Footer -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.DefaultEmailFooter, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6 small-editor">
+                @Html.TextAreaFor(model => model.DefaultEmailFooter,  htmlAttributes: new { @class = "tinymce" } )
+                @Html.ValidationMessageFor(model => model.DefaultEmailFooter, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- #endregion -->
+
+        <!-- #region Per Cycle Person -->
         <div class="form-group">
             @Html.LabelFor(model => model.PerCyclePerson, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -24,15 +54,90 @@
                 @Html.ValidationMessageFor(model => model.PerCyclePerson, "", new { @class = "text-danger" })
             </div>
         </div>
+        <!-- #endregion -->
 
+        <!-- #region Default Email Template Location -->
         <div class="form-group">
-            @Html.LabelFor(model => model.LastEmployeeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.EmailTemplateLocation, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LastEmployeeID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastEmployeeID, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.EmailTemplateLocation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmailTemplateLocation, "", new { @class = "text-danger" })
             </div>
         </div>
+        <!-- #endregion -->
 
+        <!-- #region Server Smtp Port -->
+    <div class="form-group">
+            @Html.LabelFor(model => model.ServerSmtpPort, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ServerSmtpPort, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ServerSmtpPort, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- #endregion -->
+
+        <!-- #region Server Smtp Host -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.ServerSmtpHost, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ServerSmtpHost, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ServerSmtpHost, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- #endregion -->
+
+        <!-- #region Server Email Sender -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.ServerEmailSender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ServerEmailSender, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ServerEmailSender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- #endregion -->
+
+        <!-- #region Server Email Sender Password -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.ServerEmailSenderPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ServerEmailSenderPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ServerEmailSenderPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- #endregion -->
+
+        <!-- #region Develpoer's Email -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.DevelopersEmails, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DevelopersEmails, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DevelopersEmails, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- #endregion -->
+
+        <!-- #region Admin Email -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.AdminEmails, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AdminEmails, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AdminEmails, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- #endregion -->
+
+        <!-- #region Default Beverage Price -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.DefaultBeveragePrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DefaultBeveragePrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DefaultBeveragePrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- #endregion -->
+
+        
+        <!-- #region Current Running Cycle -->
         <div class="form-group">
             @Html.LabelFor(model => model.CurrentRunningCycle, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -40,19 +145,18 @@
                 @Html.ValidationMessageFor(model => model.CurrentRunningCycle, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <!-- #endregion -->
+    
+        <!-- #region Submit Button -->
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
+        <!-- #endregion -->
     </div>
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

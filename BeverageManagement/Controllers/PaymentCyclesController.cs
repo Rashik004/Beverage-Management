@@ -32,13 +32,13 @@ namespace BeverageManagement.Controllers
         #region Process Payment (GET)
         public ActionResult ProcessPayment()
         {
-            var config = App.Config;
+            var config = AppConfig.Config;
             bool isCycleChanged;
             var employees = _logic.GetFinalSelectedEmployeesForCycle(config.PerCyclePerson, config.CurrentRunningCycle, out isCycleChanged);
             if (isCycleChanged)
             {
                 config.CurrentRunningCycle++;
-                App.SaveConfig();
+                AppConfig.SaveConfig();
             }
             TempData["SelectedEmployees"] = employees;
             return View(employees);
@@ -50,10 +50,10 @@ namespace BeverageManagement.Controllers
         public async Task<ActionResult> ProcessPayment(EmailDetails emailInfo)
         {
 
-            var config = App.Config;
+            var config = AppConfig.Config;
             var emailSubject = emailInfo.emailSubject;
             var emailBody = emailInfo.emailBody;
-            emailBody = emailBody.Replace("$amount", App.Amount.ToString());
+            emailBody = emailBody.Replace("$amount", AppConfig.Config.DefaultBeveragePrice.ToString());
             var selectedEmployeesForPayment = (List<Employee>)TempData["SelectedEmployees"];
 
             foreach (var employee in selectedEmployeesForPayment)
@@ -86,7 +86,7 @@ namespace BeverageManagement.Controllers
         public ActionResult Index(int page = 1)
         {
 
-            var config = App.Config;
+            var config = AppConfig.Config;
             var employees = db.Employees;
             var histories = db.Histories;
             var pageInfo = _logic.GetPageInfo(config.PerCyclePerson, page);

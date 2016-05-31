@@ -15,7 +15,7 @@ namespace BeverageManagement.Controllers
         public ActionResult Index()
         {
             var employees = db.Employees.ToList();
-            // App.Config.LastEmployeeID=0;
+            // AppConfig.Config.LastEmployeeID=0;
             //var employees = db.Employees.SqlQuery("Select * FROM Employee WHERE Name='hasnat'");
             //return View(employees);
             return View(employees);
