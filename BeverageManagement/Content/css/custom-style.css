@@ -2,5 +2,35 @@
   width: 100%;
   max-width: 100%;
 }
-
+.overflow-hidden {
+  overflow: hidden;
+}
+.editor-subject li {
+  padding: 0;
+}
+.editor-subject .subject {
+  width: 82%;
+}
+.editor-subject .subject input {
+  width: 100%;
+  max-width: 100%;
+}
+.evenly-distribute-width {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+.evenly-distribute-width .evenly-width {
+  display: table-cell;
+  width: 100%;
+}
+.fifty-percent {
+  width: 50%;
+}
+.thirty-three-percent {
+  width: 33%;
+}
+.buttons-group {
+  width: auto;
+}
 /*# sourceMappingURL=custom-style.css.map */

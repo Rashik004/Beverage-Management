@@ -206,16 +206,6 @@
     <Content Include="App_Data\BeverageManagement_log.ldf">
       <DependentUpon>BeverageManagement.mdf</DependentUpon>
     </Content>
-    <Content Include="Content\less\css\variables.css" />
-    <Content Include="Content\less\css\variables.min.css">
-      <DependentUpon>variables.css</DependentUpon>
-    </Content>
-    <Content Include="MailTemplate\mailToAdmin.html" />
-    <Content Include="Content\css\bootstrap-table.css" />
-    <Content Include="Content\css\bootstrap-table.min.css" />
-    <Content Include="Content\css\bootstrap.css" />
-    <Content Include="Content\css\bootstrap.min.css" />
-    <Content Include="Content\css\---bootstrap.min.css" />
     <Content Include="Content\css\custom-style.css" />
     <Content Include="Content\css\custom-style.min.css">
       <DependentUpon>custom-style.css</DependentUpon>
@@ -224,6 +214,12 @@
     <Content Include="Content\css\font-awesome.min.css">
       <DependentUpon>font-awesome.css</DependentUpon>
     </Content>
+    <Content Include="MailTemplate\mailToAdmin.html" />
+    <Content Include="Content\css\bootstrap-table.css" />
+    <Content Include="Content\css\bootstrap-table.min.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\---bootstrap.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\TinyMce\Skins\lightgray\content.inline.min.css" />
     <Content Include="Content\TinyMce\Skins\lightgray\content.min.css" />
@@ -279,27 +275,11 @@
     <Content Include="Content\less\font-awesome\screen-reader.less" />
     <Content Include="Content\less\font-awesome\stacked.less" />
     <Content Include="Content\less\font-awesome\variables.less" />
-    <Content Include="Content\css\font-awesome.css.map">
-      <DependentUpon>font-awesome.css</DependentUpon>
-    </Content>
     <Content Include="Content\css\custom-style.css.map">
       <DependentUpon>custom-style.css</DependentUpon>
     </Content>
-    <Content Include="Content\Scss\FontAwesome\font-awesome.scss" />
-    <Content Include="Content\Scss\FontAwesome\_variables.scss" />
-    <Content Include="Content\Scss\FontAwesome\_stacked.scss" />
-    <Content Include="Content\Scss\FontAwesome\_rotated-flipped.scss" />
-    <Content Include="Content\Scss\FontAwesome\_path.scss" />
-    <Content Include="Content\Scss\FontAwesome\_mixins.scss" />
-    <Content Include="Content\Scss\FontAwesome\_list.scss" />
-    <Content Include="Content\Scss\FontAwesome\_larger.scss" />
-    <Content Include="Content\Scss\FontAwesome\_icons.scss" />
-    <Content Include="Content\Scss\FontAwesome\_fixed-width.scss" />
-    <Content Include="Content\Scss\FontAwesome\_core.scss" />
-    <Content Include="Content\Scss\FontAwesome\_bordered-pulled.scss" />
-    <Content Include="Content\Scss\FontAwesome\_animated.scss" />
-    <Content Include="Content\less\css\variables.css.map">
-      <DependentUpon>variables.css</DependentUpon>
+    <Content Include="Content\css\font-awesome.css.map">
+      <DependentUpon>font-awesome.css</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom.js" />

@@ -32,8 +32,8 @@ namespace BeverageManagement.BusinessLogic
             if (boolIsCycleOver)
             {
                 var peopleNeedToCompleteCycle = peopleInCycle - peopleFoundInCycle;
-                var NewlySelectedEmployeesForPayment = GetEmployeesInCurrentCycle(peopleNeedToCompleteCycle, currentCycle + 1);
-                selectedEmployeesForPayment = selectedEmployeesForPayment.Concat(NewlySelectedEmployeesForPayment).ToList();
+                var newlySelectedEmployeesForPayment = GetEmployeesInCurrentCycle(peopleNeedToCompleteCycle, currentCycle + 1);
+                selectedEmployeesForPayment = selectedEmployeesForPayment.Concat(newlySelectedEmployeesForPayment).ToList();
             }
             return selectedEmployeesForPayment;
         } 

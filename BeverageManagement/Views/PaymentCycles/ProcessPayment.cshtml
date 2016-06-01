@@ -10,14 +10,23 @@
 @ViewBag.employeesListHtml
 @using (Html.BeginForm())
 {
-    
+
     @Html.Partial("_EmailEditor")
-    
+
     <br />
-    <div class="form-group">
-        <button class="full-width btn-success btn">
-            <i class="@FaIcons.Send"></i>
-            Send Email
-        </button>
+    <div class="">
+        <div class="form-group ">
+            <div class="btn-group evenly-distribute-width">
+                <button class="btn-success btn fifty-percent">
+                    <i class="@FaIcons.Email"></i>
+                    Send Email
+                </button>
+                <a class="btn-danger btn fifty-percent" href="javascript:history.back()">
+                    <i class="@FaIcons.Times"></i>
+                    Cancel
+                </a>
+
+            </div>
+        </div>
     </div>
 }
