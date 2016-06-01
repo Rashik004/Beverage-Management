@@ -9,8 +9,9 @@
 
     <label>Body</label>
     <textarea class="tinymce" name="emailBody">
-      
+        @AppConfig.Config.DefaultEmailBody
         @ViewBag.employeesListHtml
+        @AppConfig.Config.DefaultEmailFooter
         
     </textarea>
     

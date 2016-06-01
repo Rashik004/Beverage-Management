@@ -41,7 +41,7 @@ namespace BeverageManagement.Controllers
         public ActionResult Edit()
         {
          
-            Config config = App.Config;
+            Config config = AppConfig.Config;
             if (config == null)
             {
                 return HttpNotFound();
@@ -53,12 +53,13 @@ namespace BeverageManagement.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ConfigID,PerCyclePerson,LastEmployeeID,CurrentRunningCycle")] Config config)
+        public ActionResult Edit(Config config)
         {
             if (ModelState.IsValid)
             {
-                App.Config = config;
+                AppConfig.Config = config;
                 return RedirectToAction("Index");
             }
             return View(config);

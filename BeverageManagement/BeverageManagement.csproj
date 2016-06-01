@@ -164,7 +164,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\App.cs" />
+    <Compile Include="App_Start\AppConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -205,6 +205,10 @@
     <Content Include="App_Data\BeverageManagement.mdf" />
     <Content Include="App_Data\BeverageManagement_log.ldf">
       <DependentUpon>BeverageManagement.mdf</DependentUpon>
+    </Content>
+    <Content Include="Content\less\css\variables.css" />
+    <Content Include="Content\less\css\variables.min.css">
+      <DependentUpon>variables.css</DependentUpon>
     </Content>
     <Content Include="MailTemplate\mailToAdmin.html" />
     <Content Include="Content\css\bootstrap-table.css" />
@@ -294,6 +298,9 @@
     <Content Include="Content\Scss\FontAwesome\_core.scss" />
     <Content Include="Content\Scss\FontAwesome\_bordered-pulled.scss" />
     <Content Include="Content\Scss\FontAwesome\_animated.scss" />
+    <Content Include="Content\less\css\variables.css.map">
+      <DependentUpon>variables.css</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -611,13 +618,13 @@
     <Content Include="Views\PaymentCycles\Index.cshtml" />
     <Content Include="Views\Configs\Create.cshtml" />
     <Content Include="Views\Configs\Delete.cshtml" />
-    <Content Include="Views\Configs\Details.cshtml" />
-    <Content Include="Views\Configs\Edit.cshtml" />
-    <Content Include="Views\Configs\Index.cshtml" />
     <Content Include="Views\PaymentCycles\ProcessPayment.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_jquery_full.cshtml" />
     <Content Include="Views\PaymentCycles\_EmailEditor.cshtml" />
     <Content Include="Views\PaymentCycles\_ListOfEmployees.cshtml" />
+    <Content Include="Views\Configs\_CreateOrEdit.cshtml" />
+    <Content Include="Views\Configs\Edit.cshtml" />
+    <Content Include="Views\Configs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
