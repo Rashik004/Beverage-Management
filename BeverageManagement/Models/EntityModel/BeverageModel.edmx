@@ -33,6 +33,7 @@
           <Property Name="IsWorking" Type="bit" Nullable="false" />
           <Property Name="Cycle" Type="int" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="JoiningDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="History">
           <Key>
@@ -109,6 +110,7 @@
           <Property Name="IsWorking" Type="Boolean" Nullable="false" />
           <Property Name="Cycle" Type="Int32" Nullable="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JoiningDate" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Histories" Relationship="BeverageManagementModel.FK_History_Employee" FromRole="Employee" ToRole="History" />
         </EntityType>
         <EntityType Name="History">
@@ -165,6 +167,7 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="BeverageManagementModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Cycle" ColumnName="Cycle" />
                 <ScalarProperty Name="IsWorking" ColumnName="IsWorking" />
@@ -185,7 +188,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

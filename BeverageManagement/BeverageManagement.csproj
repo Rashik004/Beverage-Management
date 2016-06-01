@@ -51,6 +51,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -172,6 +173,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="BusinessLogic\Logic.cs" />
     <Compile Include="BusinessLogic\Mailer.cs" />
+    <Compile Include="Controllers\HistoriesController.cs" />
     <Compile Include="Scheduler\MailScheduler.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigsController.cs" />
@@ -605,6 +607,11 @@
     <Content Include="Views\Configs\_CreateOrEdit.cshtml" />
     <Content Include="Views\Configs\Edit.cshtml" />
     <Content Include="Views\Configs\Index.cshtml" />
+    <Content Include="Views\Histories\Create.cshtml" />
+    <Content Include="Views\Histories\Delete.cshtml" />
+    <Content Include="Views\Histories\Details.cshtml" />
+    <Content Include="Views\Histories\Edit.cshtml" />
+    <Content Include="Views\Histories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
