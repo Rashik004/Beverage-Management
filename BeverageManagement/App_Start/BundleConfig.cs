@@ -11,7 +11,8 @@ namespace BeverageManagement
 
             var cssPath = "~/Content/css/";
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -27,6 +28,8 @@ namespace BeverageManagement
                       "~/Scripts/bootstrap-table-filter.js",
                       "~/Scripts/bootstrap-table-export.js",
                        "~/Content/TinyMce/tinymce.min.js",
+                       "~/Scripts/moment.js",
+                       "~/Scripts/bootstrap-datetimepicker.min.js",
                       "~/Scripts/Custom.js",
                       "~/Scripts/respond.js"));
 
@@ -35,7 +38,11 @@ namespace BeverageManagement
                       cssPath + "bootstrap-table.css",
                       cssPath + "font-awesome.css",
                       cssPath + "custom-style.css",
-                      cssPath + "site.css"));
+                      cssPath + "site.css",
+                      cssPath + "bootstrap-datetimepicker-standalone.css",
+                      cssPath + "bootstrap-datetimepicker.css",
+                      cssPath + "bootstrap-datetimepicker.min.css",
+                      cssPath + "jquery-ui.min.css"));
 
 #if DEBUG
             BundleTable.EnableOptimizations = false;
