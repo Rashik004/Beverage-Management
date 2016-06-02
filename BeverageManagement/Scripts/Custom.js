@@ -21,14 +21,25 @@
 
 
     var $historyPage = $("#past-history-controller");
-    var $check = "hello";
-    console.log($historyPage.length);
-    //$historyPage.length is returning zero 
-
+   
+    //for (var i = 1; i < 6; i++) {
+    //    if (document.getElementById(i).checked)
+    //        console.log(i + "is checked");
+    //}
     if ($historyPage.length > 0) {
-        // we are in history page
+
         $("#save-btn").on("click", function (e) {
-            
+            var $table = $historyPage.find("table");
+
+            var $tr = $table.find("tr");
+            var $checkBoxes = $tr.find(".employee-select");
+            for (var i = 0; i < $checkBoxes.length; i++) {
+                var $checkbox = $($checkBoxes[i]);
+                console.log($checkbox);
+                console.log($checkbox.is(":checked"));
+            }
+            console.log($tr.length - 1);
+
             alert('Hello');
             e.preventDefault();
         });

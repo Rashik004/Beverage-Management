@@ -50,7 +50,7 @@
 
         @foreach (var item in Model) {
             <tr>
-                <td><input name="@item.EmployeeID" type="checkbox" /></td>
+                <td><input name="@item.EmployeeID" type="checkbox" class="employee-select" id="checkbox-@item.EmployeeID"/></td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -76,7 +76,3 @@
 
     </table>
 }
-
-<script type="text/javascript">
-
-</script>
