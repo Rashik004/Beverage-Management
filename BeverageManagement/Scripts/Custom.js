@@ -14,9 +14,25 @@
           '//www.tinymce.com/css/codepen.min.css'
         ]
     });
+
+
+    $('.datetimepicker').datetimepicker();
+    //var element = document.getElementById("datetimepicker1");
+
+
+    var $historyPage = $("#past-history-controller");
+    var $check = "hello";
+    console.log($historyPage.length);
+    //$historyPage.length is returning zero 
+
+    if ($historyPage.length > 0) {
+        // we are in history page
+        $("#save-btn").on("click", function (e) {
+            
+            alert('Hello');
+            e.preventDefault();
+        });
+    }
 });
 
-$(function () {
-    $('#datetimepicker1').datetimepicker();
-});
 

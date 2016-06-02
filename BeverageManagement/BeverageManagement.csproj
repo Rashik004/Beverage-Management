@@ -174,6 +174,7 @@
     <Compile Include="BusinessLogic\Logic.cs" />
     <Compile Include="BusinessLogic\Mailer.cs" />
     <Compile Include="Controllers\HistoriesController.cs" />
+    <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Scheduler\MailScheduler.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigsController.cs" />
@@ -208,6 +209,10 @@
     <Content Include="App_Data\BeverageManagement_log.ldf">
       <DependentUpon>BeverageManagement.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\css\bootstrap-datetimepicker-override.css" />
+    <Content Include="Content\css\bootstrap-datetimepicker-override.min.css">
+      <DependentUpon>bootstrap-datetimepicker-override.css</DependentUpon>
+    </Content>
     <Content Include="Content\css\bootstrap-datetimepicker-standalone.css" />
     <Content Include="Content\css\bootstrap-datetimepicker.css" />
     <Content Include="Content\css\bootstrap-datetimepicker.min.css" />
@@ -239,7 +244,7 @@
     <Content Include="Content\TinyMce\themes\modern\theme.min.js" />
     <Content Include="Content\TinyMce\tinymce.min.js" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\css\Site.css" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -286,6 +291,10 @@
     </Content>
     <Content Include="Content\css\font-awesome.css.map">
       <DependentUpon>font-awesome.css</DependentUpon>
+    </Content>
+    <Content Include="Content\less\bootstrap-datetimepicker-override.less" />
+    <Content Include="Content\css\bootstrap-datetimepicker-override.css.map">
+      <DependentUpon>bootstrap-datetimepicker-override.css</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom.js" />
@@ -622,9 +631,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>

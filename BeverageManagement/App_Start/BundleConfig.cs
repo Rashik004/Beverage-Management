@@ -39,9 +39,8 @@ namespace BeverageManagement
                       cssPath + "font-awesome.css",
                       cssPath + "custom-style.css",
                       cssPath + "site.css",
-                      cssPath + "bootstrap-datetimepicker-standalone.css",
-                      cssPath + "bootstrap-datetimepicker.css",
                       cssPath + "bootstrap-datetimepicker.min.css",
+                      cssPath + "bootstrap-datetimepicker-override.css",
                       cssPath + "jquery-ui.min.css"));
 
 #if DEBUG
