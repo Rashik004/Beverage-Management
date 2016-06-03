@@ -32,15 +32,22 @@
             var $table = $historyPage.find("table");
 
             var $tr = $table.find("tr");
+            var $message = "Messages will be sent to:<br/>";
+            //console.log(message);
             var $checkBoxes = $tr.find(".employee-select");
             for (var i = 0; i < $checkBoxes.length; i++) {
                 var $checkbox = $($checkBoxes[i]);
-                console.log($checkbox);
-                console.log($checkbox.is(":checked"));
+               // console.log($checkbox);
+                if ($checkbox.is(":checked")) {
+                    $message = $message + $checkbox.attr("data-employeeName") +"<br/>";
+                    
+                }
             }
             console.log($tr.length - 1);
-
-            alert('Hello');
+            console.log("Before MOdal");
+            $(".modal-title").html("Beverage Payment Confirmation");
+            $(".modal-body>p").html($message);
+            console.log("After MOdal");
             e.preventDefault();
         });
     }
