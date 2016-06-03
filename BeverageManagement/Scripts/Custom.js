@@ -17,37 +17,30 @@
 
 
     $('.datetimepicker').datetimepicker();
-    //var element = document.getElementById("datetimepicker1");
-
-
     var $historyPage = $("#past-history-controller");
-   
-    //for (var i = 1; i < 6; i++) {
-    //    if (document.getElementById(i).checked)
-    //        console.log(i + "is checked");
-    //}
     if ($historyPage.length > 0) {
 
         $("#save-btn").on("click", function (e) {
             var $table = $historyPage.find("table");
-
-            var $tr = $table.find("tr");
             var $message = "Messages will be sent to:<br/>";
-            //console.log(message);
+            var $header = "Beverage Payment Confirmation";
+            var $numberOfSelectedEmployee = 0;
+            var $tr = $table.find("tr");
+            
             var $checkBoxes = $tr.find(".employee-select");
             for (var i = 0; i < $checkBoxes.length; i++) {
                 var $checkbox = $($checkBoxes[i]);
-               // console.log($checkbox);
                 if ($checkbox.is(":checked")) {
-                    $message = $message + $checkbox.attr("data-employeeName") +"<br/>";
-                    
+                    $message = $message + $checkbox.attr("data-employeeName") + "<br/>";
+                    $numberOfSelectedEmployee++;
                 }
             }
-            console.log($tr.length - 1);
-            console.log("Before MOdal");
-            $(".modal-title").html("Beverage Payment Confirmation");
+            if ($numberOfSelectedEmployee == 0) {
+                $message = "No employees has been selected";
+                $header = "Attention";
+            }
+            $(".modal-title").html($header);
             $(".modal-body>p").html($message);
-            console.log("After MOdal");
             e.preventDefault();
         });
     }
