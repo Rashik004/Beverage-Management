@@ -605,7 +605,6 @@
     <Content Include="Views\Checking\Edit.cshtml" />
     <Content Include="Views\Checking\Index.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
-    <Content Include="Views\Employees\Create.cshtml" />
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\PaymentCycles\Create.cshtml" />
     <Content Include="Views\PaymentCycles\Delete.cshtml" />
@@ -626,6 +625,7 @@
     <Content Include="Views\Histories\Details.cshtml" />
     <Content Include="Views\Histories\Edit.cshtml" />
     <Content Include="Views\Histories\Index.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

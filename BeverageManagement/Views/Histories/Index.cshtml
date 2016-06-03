@@ -13,11 +13,11 @@
 
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("MyAction", "MyController"))
 {
     <ul class="list-inline">
         @*<li>@Html.ActionLink("Saves", "Create", null, htmlAttributes: new { @class = "btn btn-info", @id="save-btn"})</li>*@
-        <li><input type="button" name="Create" value="Save" class="btn btn-info" id="save-btn" data-toggle="modal" data-target="#myModal" /></li>
+        <li><input type="submit" name="Create" value="Save" class="btn btn-info" id="save-btn" data-toggle="modal" data-target="#myModal" /></li>
         <li class="pull-left">
             <div class="form-group">
                 <div class='input-group date datetimepicker'>
