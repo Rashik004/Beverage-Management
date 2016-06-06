@@ -173,8 +173,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="BusinessLogic\Logic.cs" />
     <Compile Include="BusinessLogic\Mailer.cs" />
+    <Compile Include="Common\Statics.cs" />
+    <Compile Include="Constants\RoleNames.cs" />
     <Compile Include="Controllers\HistoriesController.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Modules\UserManagement\Users.cs" />
     <Compile Include="Scheduler\MailScheduler.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigsController.cs" />

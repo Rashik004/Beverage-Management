@@ -5,11 +5,18 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.ModelBinding;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using BeverageManagement.Constants;
 using BeverageManagement.Models.EntityModel;
+using Microsoft.AspNet.Identity;
 
 namespace BeverageManagement.Controllers
 {
+    //[Authorize]// authentication
+    [Authorize(Roles = RoleNames.Admin)]// authorization 
+
     public class ConfigsController : Controller
     {
         private BeverageManagementEntities db = new BeverageManagementEntities();
@@ -17,6 +24,7 @@ namespace BeverageManagement.Controllers
         // GET: Configs
         public ActionResult Index()
         {
+            
             return View(db.Configs.ToList());
         }
 

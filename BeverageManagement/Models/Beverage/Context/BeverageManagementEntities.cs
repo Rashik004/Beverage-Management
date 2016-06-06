@@ -17,8 +17,7 @@ namespace BeverageManagement.Models.EntityModel
     {
         public BeverageManagementEntities()
             : base("name=BeverageManagementEntities")
-        {
-        }
+        {}
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
