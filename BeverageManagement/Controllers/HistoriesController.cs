@@ -20,6 +20,13 @@ namespace BeverageManagement.Controllers
             return View(db.Employees.ToList());
         }
 
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult InsertPastHistory()
+        {
+            return RedirectToAction("Index");
+        }
         // GET: Histories/Details/5
         public ActionResult Details(int? id)
         {
