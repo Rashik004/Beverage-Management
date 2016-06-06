@@ -51,15 +51,19 @@ namespace BeverageManagement.BusinessLogic
         {
             var employees = db.Employees;
             var pageInfo = GetPageInfo(expectedNumberOfEmployee, 1);
+           //var currentDateTime=(DateTime.Now-employees.FirstOrDefault().JoiningDate).Days;
+            var currentDateTime = DateTime.Now;
+            var oneMonthback = currentDateTime.AddMonths(-1);
             var pagedEmployees = employees
-                        .Where(e => e.Cycle < currentRunningCycle && e.IsWorking == true)
+                        .Where(e => e.Cycle < currentRunningCycle && e.IsWorking == true && !(e.JoiningDate>=oneMonthback && e.JoiningDate<=currentDateTime))
                         .OrderBy(n => n.EmployeeID)
                         .GetPageData(pageInfo).ToList();
             return pagedEmployees;
         } 
         #endregion
 
-
+        
+        
         #region Pagination
         public PaginationInfo GetPageInfo(int perCyclePerson, int pageNumber)
         {
