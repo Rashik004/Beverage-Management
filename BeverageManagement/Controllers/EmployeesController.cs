@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using BeverageManagement.Models;
 using BeverageManagement.Models.EntityModel;
 using DevMvcComponent;
+using BeverageManagement.Constants;
 namespace BeverageManagement.Controllers
 {
     public class EmployeesController : Controller
@@ -15,9 +16,6 @@ namespace BeverageManagement.Controllers
         public ActionResult Index()
         {
             var employees = db.Employees.ToList();
-            // AppConfig.Config.LastEmployeeID=0;
-            //var employees = db.Employees.SqlQuery("Select * FROM Employee WHERE Name='hasnat'");
-            //return View(employees);
             return View(employees);
         }
 

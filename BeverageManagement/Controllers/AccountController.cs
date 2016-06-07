@@ -60,13 +60,16 @@ namespace BeverageManagement.Controllers
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl) {
-       
-            //roleManager.Create(new IdentityRole() {
+
+            //roleManager.Create(new IdentityRole()
+            //{
             //    Name = "Admin"
             //});
-            //Users.Roles.Create(new IdentityRole() {
-            //    Name = RoleNames.Admin
-            //});
+            
+            Users.Roles.Create(new IdentityRole()
+            {
+                Name = RoleNames.Admin
+            });
             //var user = Users.Manage.FindByEmail("akarim@relisource.com");
             //Users.Manage.AddToRole(user.Id, RoleNames.Admin);
             ViewBag.ReturnUrl = returnUrl;
@@ -167,6 +170,13 @@ namespace BeverageManagement.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    using (var db = new ApplicationDbContext()) {
+                        if (db.Users.Count() == 1) {
+                            // first user.
+                            Users.Manage.AddToRole(user.Id, RoleNames.Admin);
+                        }
+                    }
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

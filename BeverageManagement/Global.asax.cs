@@ -25,6 +25,7 @@ namespace BeverageManagement
             var mailServer = new CustomMailServer(config.ServerEmailSender, config.ServerEmailSenderPassword, config.ServerSmtpHost, config.ServerSmtpPort);
             DevMvcComponent.Mvc.Setup(config.SiteName, config.DevelopersEmails, System.Reflection.Assembly.GetExecutingAssembly(), mailServer);
             JobManager.Initialize(new MailScheduler());
+            AppConfig.Setup();
         }
     }
 }
