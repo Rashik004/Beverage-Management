@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using BeverageManagement.Constants;
-using BeverageManagement.Models.EntityModel;
 using BeverageManagement.Modules.Extensions;
 using BeverageManagement.Modules.UserManagement;
 using Microsoft.AspNet.Identity;
