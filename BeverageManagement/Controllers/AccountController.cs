@@ -171,10 +171,11 @@ namespace BeverageManagement.Controllers
                 if (result.Succeeded)
                 {
                     using (var db = new ApplicationDbContext()) {
+                        var user2 = db.Users.FirstOrDefault(n => n.Email == user.Email);
                         if (db.Users.Count() == 1) {
-                            Users.Manage.AddToRole(user.Id, RoleNames.Admin);
+                            Users.Manage.AddToRole(user2.Id, RoleNames.Admin);
                         } else {
-                            Users.Manage.AddToRole(user.Id, RoleNames.Editor);
+                            Users.Manage.AddToRole(user2.Id, RoleNames.Editor);
                         }
                     }
 
