@@ -9,7 +9,6 @@ namespace BeverageManagement.Constants {
     public class RoleNames {
         public const string Admin = "Admin";
         public const string Editor = "EditorX";
-        public const string Member = "MemberX";
 
         /// <summary>
         /// Returns all the roles name.
