@@ -24,9 +24,12 @@ namespace BeverageManagement.Controllers
         }
 
         public ActionResult AddAsAdmin(string id) {
-            //Users.Manage.AddToRole(id, RoleNames.Admin);
-           // ApplicationUser applicationUser = db.Users.Find(id);
             Users.Manage.AddToRole(id, RoleNames.Admin);
+            return View("Index", db.Users.ToList());
+        }
+        public ActionResult RemoveFromAdmin(string id) {
+            if (Users.Manage.IsInRole(id, RoleNames.Admin))
+                Users.Manage.RemoveFromRole(id, RoleNames.Admin);
             return View("Index", db.Users.ToList());
         }
 
