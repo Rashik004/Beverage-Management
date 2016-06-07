@@ -13,93 +13,96 @@
 
 
 
-@using (Html.BeginForm("InsertPastHistory", "Histories"))
-{
-    <ul class="list-inline">
-        <li><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="save-btn">Open Modal</button></li>
-        <li class="pull-left">
-            <div class="form-group">
-                <div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                    </span>
-                </div>
+<ul class="list-inline">
+    <li><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="save-btn">Open Modal</button></li>
+    <li class="pull-left">
+        <div class="form-group">
+            <div class='input-group date datetimepicker'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </span>
             </div>
-        </li>
-    </ul>
-
-    <table class="table" id="selectionTable">
-        <tr>
-            <th>
-                Select For Payment
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsWorking)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cycle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JoiningDate)
-            </th>
-            @*<th>
-
-                </th>*@
-        </tr>
-
-        @foreach (var item in Model) {
-            <tr>
-                <td><input name="@item.EmployeeID" type="checkbox" class="employee-select" id="checkbox-@item.EmployeeID" data-employeeName="@item.Name"/></td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsWorking)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cycle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.JoiningDate)
-                </td>
-                @*<td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID })
-                    </td>*@
-            </tr>
-        }
-
-    </table>
-    <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Some text in the modal.</p>
-                </div>
-                <div class="modal-footer">
-                    @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
-                    <input type="submit" value="Proceed" />
-                </div>
-            </div>
-
         </div>
+    </li>
+</ul>
+
+<table class="table" id="selectionTable">
+    <tr>
+        <th>
+            Select For Payment
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsWorking)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cycle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JoiningDate)
+        </th>
+        @*<th>
+
+            </th>*@
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td><input name="employee-@item.EmployeeID" type="checkbox" class="employee-select" id="checkbox-@item.EmployeeID" data-employeename="@item.Name" data-id="@item.EmployeeID"/></td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsWorking)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cycle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JoiningDate)
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID })
+                </td>*@
+        </tr>
+    }
+
+</table>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <ul id="employee-display-list">
+                    hello there
+                </ul>
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                @using (Html.BeginForm("InsertPastHistory", "Histories")) {
+                    @Html.Hidden("employeeIds", "")
+                    @Html.Hidden("dated", "")
+                    <input type="submit" value="Proceed" />
+                }
+            </div>
+        </div>
+
     </div>
-}
+</div>

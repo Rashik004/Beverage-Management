@@ -23,8 +23,24 @@ namespace BeverageManagement.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult InsertPastHistory()
-        {
+        public ActionResult InsertPastHistory(string employeeIds, DateTime dated) {
+            //only checked tick boxes will have value "on" others will have null values
+           // var a = Request.Form["employee-1"];
+            //var a = Request.Form["dated"];
+            Console.WriteLine(dated);
+            var ids = employeeIds.Split(',');
+            var history = new History();
+            foreach (var id in ids) {
+                history.EmployeeID = Int32.Parse(id);
+                history.Dated = DateTime.Now;
+                db.Histories.Add(history);
+            }
+            try {
+                db.SaveChanges();
+            } catch {
+                throw new Exception("We can't save the modified data.");
+            }
+            //var debug
             return RedirectToAction("Index");
         }
         // GET: Histories/Details/5

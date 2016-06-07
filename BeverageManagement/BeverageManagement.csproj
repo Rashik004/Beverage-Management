@@ -175,6 +175,7 @@
     <Compile Include="BusinessLogic\Mailer.cs" />
     <Compile Include="Common\Statics.cs" />
     <Compile Include="Constants\RoleNames.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HistoriesController.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Modules\Extensions\ClassExtensions.cs" />
@@ -630,6 +631,11 @@
     <Content Include="Views\Histories\Edit.cshtml" />
     <Content Include="Views\Histories\Index.cshtml" />
     <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Admin\Create.cshtml" />
+    <Content Include="Views\Admin\Delete.cshtml" />
+    <Content Include="Views\Admin\Details.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

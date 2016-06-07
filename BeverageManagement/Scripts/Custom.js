@@ -17,7 +17,10 @@
 
 
     $('.datetimepicker').datetimepicker();
+
+    //console.log("HEHE " + $ssc);
     var $historyPage = $("#past-history-controller");
+    console.log($historyPage);
     if ($historyPage.length > 0) {
 
         $("#save-btn").on("click", function (e) {
@@ -26,21 +29,31 @@
             var $header = "Beverage Payment Confirmation";
             var $numberOfSelectedEmployee = 0;
             var $tr = $table.find("tr");
-            
-            var $checkBoxes = $tr.find(".employee-select");
+            var $ids = "";
+            var $checkBoxes = $tr.find(".employee-select"); 
             for (var i = 0; i < $checkBoxes.length; i++) {
                 var $checkbox = $($checkBoxes[i]);
                 if ($checkbox.is(":checked")) {
-                    $message = $message + $checkbox.attr("data-employeeName") + "<br/>";
+                    $message = $message + "<li>"+$checkbox.attr("data-employeeName") + "</li>";
                     $numberOfSelectedEmployee++;
+                    if ($ids == "") {
+                        $ids = $checkbox.attr("data-id");
+                    } else {
+                        $ids = $ids + "," + $checkbox.attr("data-id");
+                    }
                 }
             }
-            if ($numberOfSelectedEmployee == 0) {
+            if ($numberOfSelectedEmployee === 0) {
                 $message = "No employees has been selected";
                 $header = "Attention";
             }
+            var dated = $(".datetimepicker").find("input").val();
+            $("#dated").attr("value", dated);
+            console.log(dated);
             $(".modal-title").html($header);
-            $(".modal-body>p").html($message);
+            $("#employee-display-list").html($message+$ids);
+            $("#employeeIds").attr("value", $ids);
+            
             e.preventDefault();
         });
     }

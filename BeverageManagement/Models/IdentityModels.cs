@@ -30,6 +30,7 @@ namespace BeverageManagement.Models
             return new ApplicationDbContext();
         }
 
+
        // public System.Data.Entity.DbSet<BeverageManagement.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

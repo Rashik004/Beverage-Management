@@ -91,7 +91,7 @@ namespace BeverageManagement.Controllers
             var pageInfo = _logic.GetPageInfo(config.PerCyclePerson, page);
             var employeePaymentHistory = histories
                                     .Include(n => n.Employee)
-                                    .OrderBy(e => e.HistoryID)
+                                    .OrderBy(e => e.Dated)
                                     .GetPageData(pageInfo).ToList();
 
             ViewBag.paginationHtml = new MvcHtmlString(Pagination.GetList(pageInfo, url: "?page=@page"));
