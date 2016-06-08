@@ -49,9 +49,9 @@
             }
             var dated = $(".datetimepicker").find("input").val();
             $("#dated").attr("value", dated);
-            console.log(dated);
             $(".modal-title").html($header);
-            $("#employee-display-list").html($message+$ids);
+            $("#employee-display-list").html($message);
+            console.log($message);
             $("#employeeIds").attr("value", $ids);
             
             e.preventDefault();

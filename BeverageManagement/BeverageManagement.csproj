@@ -617,7 +617,6 @@
     <Content Include="Views\PaymentCycles\Edit.cshtml" />
     <Content Include="Views\PaymentCycles\Index.cshtml" />
     <Content Include="Views\Configs\Create.cshtml" />
-    <Content Include="Views\Configs\Delete.cshtml" />
     <Content Include="Views\PaymentCycles\ProcessPayment.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_jquery_full.cshtml" />
     <Content Include="Views\PaymentCycles\_EmailEditor.cshtml" />
@@ -625,10 +624,6 @@
     <Content Include="Views\Configs\_CreateOrEdit.cshtml" />
     <Content Include="Views\Configs\Edit.cshtml" />
     <Content Include="Views\Configs\Index.cshtml" />
-    <Content Include="Views\Histories\Create.cshtml" />
-    <Content Include="Views\Histories\Delete.cshtml" />
-    <Content Include="Views\Histories\Details.cshtml" />
-    <Content Include="Views\Histories\Edit.cshtml" />
     <Content Include="Views\Histories\Index.cshtml" />
     <Content Include="Views\Employees\Create.cshtml" />
     <Content Include="Views\Admin\Create.cshtml" />
