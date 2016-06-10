@@ -41,7 +41,7 @@ namespace BeverageManagement.Controllers
 
 
         public ActionResult SeePastHistoryByDate() {
-            return View(db.Histories.Distinct().ToList());
+            return View(db.Histories.ToList());
         }
 
     protected override void Dispose(bool disposing)
