@@ -5,7 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using BeverageManagement.ViewModel;
+using System.Data.Entity;
 namespace BeverageManagement.BusinessLogic
 {
     public class Logic
@@ -75,6 +76,28 @@ namespace BeverageManagement.BusinessLogic
             return pageInfo;
         } 
         #endregion
+
+        public List<HistoryByDateViewModel> GetHistoryDates(int count = 200, DateTime ? dated = null) {
+            var histories = db.Histories;
+            var results = histories
+                .OrderByDescending(n => n.Dated)
+                .GroupBy(n => n.Dated)
+                .Take(count)
+                .Select(n => new HistoryByDateViewModel() {
+                    Date = n.FirstOrDefault().Dated,
+                    Count = n.Count(),
+                    
+                }).ToList();
+
+       
+            return results;
+        }
+
+        public IQueryable<History> GetEmployeesHistoryByDate(DateTime dated) {
+            var histories = db.Histories.Include(n=> n.Employee);
+            var results = histories.Where(n => n.Dated == dated);
+            return results;
+        }
 
     }
 }

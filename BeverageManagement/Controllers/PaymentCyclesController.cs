@@ -46,12 +46,12 @@ namespace BeverageManagement.Controllers
 
         #region Process Payment (POST)
         [HttpPost, ValidateInput(false)]
-        public async Task<ActionResult> ProcessPayment(EmailDetails emailInfo)
+        public async Task<ActionResult> ProcessPayment(EmailDetailViewModel emailInfo)
         {
 
             var config = AppConfig.Config;
-            var emailSubject = emailInfo.emailSubject;
-            var emailBody = emailInfo.emailBody;
+            var emailSubject = emailInfo.EmailSubject;
+            var emailBody = emailInfo.EmailBody;
             emailBody = emailBody.Replace("$amount", AppConfig.Config.DefaultBeveragePrice.ToString());
             var selectedEmployeesForPayment = (List<Employee>)TempData["SelectedEmployees"];
 

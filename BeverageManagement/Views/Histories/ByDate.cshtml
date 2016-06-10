@@ -1,0 +1,53 @@
+﻿@using BeverageManagement.ViewModel
+@model IEnumerable<BeverageManagement.Models.EntityModel.History>
+
+@{
+    ViewBag.Title = "Employees History by Date : " + ViewBag.dated.ToString("dd-MMM-yy");
+    var datesList = (List<HistoryByDateViewModel>) ViewBag.datesList;
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="row">
+    <div class="col-sm-2">
+        <div class="sidebar-nav">
+            <ul class="nav nav-pills nav-stacked">
+                @foreach (var item in datesList) {
+                    <li>
+                        <a href="@Url.Action("ByDate", new {dated = item.Date})">
+                            @item.GetDisplay()
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        Main content goes here
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee.Name)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Name)
+                    </td>
+
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id=item.HistoryID }) |
+                            @Html.ActionLink("Details", "Details", new { id=item.HistoryID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id=item.HistoryID })*@
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
