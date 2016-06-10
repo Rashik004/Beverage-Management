@@ -10,13 +10,11 @@ using BeverageManagement.Models.EntityModel;
 
 namespace BeverageManagement.Controllers
 {
-    public class HistoriesController : Controller
-    {
+    public class HistoriesController : Controller {
         private BeverageManagementEntities db = new BeverageManagementEntities();
 
         // GET: Histories
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             return View(db.Employees.ToList());
         }
 
@@ -40,7 +38,13 @@ namespace BeverageManagement.Controllers
             }
             return RedirectToAction("Index");
         }
-        protected override void Dispose(bool disposing)
+
+
+        public ActionResult SeePastHistoryByDate() {
+            return View(db.Histories.Distinct().ToList());
+        }
+
+    protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

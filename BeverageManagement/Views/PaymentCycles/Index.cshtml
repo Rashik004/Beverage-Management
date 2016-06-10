@@ -9,9 +9,8 @@
 <p>
     <a href="@Url.Action("ProcessPayment", "PaymentCycles")" class="btn btn-primary">Pay this Cycle</a>
 </p>
-@if (Model != null && Model.Count > 0)
-{
-    <table class="table bootstrap-table-convert table-striped" data-show-columns="true" data-search="true">
+@if (Model != null && Model.Count > 0) {
+    <table class="table bootstrap-table-convert table-striped" data-show-columns="true" data-search="true" data-show-refresh="true" data-show-toggle="true" data-show-export="true">
         <thead>
             <tr>
                 <th>
@@ -30,8 +29,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
-            {
+            @foreach (var item in Model) {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Employee.Name)
