@@ -26,6 +26,16 @@
         </div>
         <!-- #endregion -->
 
+        <!-- #region Default Email Subject -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.DefaultEmailSubject, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DefaultEmailSubject, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DefaultEmailSubject, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- #endregion -->
+
         <!-- #region Default Email Body -->
         <div class="form-group">
             @Html.LabelFor(model => model.DefaultEmailBody, htmlAttributes: new { @class = "control-label col-md-2" })

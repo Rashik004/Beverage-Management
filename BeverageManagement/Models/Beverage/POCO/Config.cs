@@ -55,5 +55,6 @@ namespace BeverageManagement.Models.EntityModel
 
         [Display(Name = "Site Name")]
         public string SiteName { get; set; }
+        public string DefaultEmailSubject { get; set; }
     }
 }
