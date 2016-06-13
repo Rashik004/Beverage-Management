@@ -60,36 +60,24 @@
 
     var $historyByDate = $("#history-filtered-by-date");
     if ($historyByDate.length > 0) {
-        console.log("Vitre");
         var $totalChange = 0;
         $("#datetimepicker1")
             .on("dp.change",
                 function() {
                     console.log($totalChange);
                     if ($totalChange != 0) {
-                        $totalChange = $totalChange + 1;
                         var dated = $("#datetimepicker1").find("input").val();
                         var location = window.location;
                         var hostName = location.host;
                         var path = location.pathname;
+                        var url = "http://" + hostName + path;
 
-                        var url = "http://" + hostName  + path;
-                        console.log(url);
+                        $totalChange = $totalChange + 1;
                         location.href = url + "?dated="+ dated;
-                        // console.log(hostName);
-                        // console.log(hostName + path);
-                        //// window.location.search = "";
                     } else {
                         $totalChange++;
                     }
                 });
-        //$('#dp').find("input")
-        //    .on('dp.change', function (ev) {
-        //            console.log("Change hoise!!!");
-        //            //var dated = $(this).val();
-        //            //window.location = window.location + dated;
-
-        //        });
     }
 });
 
