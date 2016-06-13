@@ -61,13 +61,26 @@
     var $historyByDate = $("#history-filtered-by-date");
     if ($historyByDate.length > 0) {
         console.log("Vitre");
-        $('.datetimepicker').find("input")
-            .on('changeDate', function (ev) {
-                    console.log("Change hoise!!!");
-                    var dated = $(this).val();
-                    window.location = window.location + dated;
-
+        var $totalChange = 0;
+        $("#datetimepicker1")
+            .on("dp.change",
+                function() {
+                    console.log($totalChange);
+                    if ($totalChange != 0) {
+                        $totalChange = $totalChange + 1;
+                        var dated = $("#datetimepicker1").find("input").val();
+                        window.location = window.location + dated;
+                    } else {
+                        $totalChange++;
+                    }
                 });
+        //$('#dp').find("input")
+        //    .on('dp.change', function (ev) {
+        //            console.log("Change hoise!!!");
+        //            //var dated = $(this).val();
+        //            //window.location = window.location + dated;
+
+        //        });
     }
 });
 
