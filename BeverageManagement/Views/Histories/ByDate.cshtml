@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Employees History by Date : " + ViewBag.dated.ToString("dd-MMM-yy");
     var datesList = (List<HistoryByDateViewModel>) ViewBag.datesList;
+    Html.SetPageId("history-filtered-by-date");
 }
 
 <h2>@ViewBag.Title</h2>
@@ -11,6 +12,12 @@
     <div class="col-sm-2">
         <div class="sidebar-nav">
             <ul class="nav nav-pills nav-stacked">
+                <div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" id="date-picker"/>
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                </div>
                 @foreach (var item in datesList) {
                     <li>
                         <a href="@Url.Action("ByDate", new {dated = item.Date})">

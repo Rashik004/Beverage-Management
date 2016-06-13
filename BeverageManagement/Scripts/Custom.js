@@ -57,6 +57,18 @@
             e.preventDefault();
         });
     }
+
+    var $historyByDate = $("#history-filtered-by-date");
+    if ($historyByDate.length > 0) {
+        console.log("Vitre");
+        $('.datetimepicker').find("input")
+            .on('changeDate', function (ev) {
+                    console.log("Change hoise!!!");
+                    var dated = $(this).val();
+                    window.location = window.location + dated;
+
+                });
+    }
 });
 
 
