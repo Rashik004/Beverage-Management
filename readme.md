@@ -22,7 +22,7 @@ Beverage Management  Application is an application designed for automating beveg
 - See past History
 
 
-**User Roles : **
+**User Roles:**
 
 - Admin
 - Registerd Users
