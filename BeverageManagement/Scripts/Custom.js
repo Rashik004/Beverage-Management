@@ -69,7 +69,16 @@
                     if ($totalChange != 0) {
                         $totalChange = $totalChange + 1;
                         var dated = $("#datetimepicker1").find("input").val();
-                        window.location = window.location + dated;
+                        var location = window.location;
+                        var hostName = location.host;
+                        var path = location.pathname;
+
+                        var url = "http://" + hostName  + path;
+                        console.log(url);
+                        location.href = url + "?dated="+ dated;
+                        // console.log(hostName);
+                        // console.log(hostName + path);
+                        //// window.location.search = "";
                     } else {
                         $totalChange++;
                     }
