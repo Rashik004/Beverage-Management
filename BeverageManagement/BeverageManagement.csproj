@@ -39,8 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevMvcComponent">
-      <HintPath>..\packages\DevMVCComponent.2.3.0\lib\DevMvcComponent.dll</HintPath>
+    <Reference Include="DevMvcComponent, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevMvcComponent.3.1.0\lib\DevMvcComponent.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="FluentScheduler">
       <HintPath>..\packages\FluentScheduler.4.1.0\lib\net40\FluentScheduler.dll</HintPath>
@@ -172,7 +173,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="BusinessLogic\Logic.cs" />
-    <Compile Include="BusinessLogic\Mailer.cs" />
     <Compile Include="Common\Statics.cs" />
     <Compile Include="Constants\RoleNames.cs" />
     <Compile Include="Controllers\AdminController.cs" />

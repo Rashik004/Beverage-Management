@@ -22,7 +22,7 @@ namespace BeverageManagement
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             //Mvc.Mailer.QuickSend();
             var config = AppConfig.Config;
-            var mailServer = new CustomMailServer(config.ServerEmailSender, config.ServerEmailSenderPassword, config.ServerSmtpHost, config.ServerSmtpPort);
+            var mailServer = new CustomMailServer(config.SiteName,config.ServerEmailSender, config.ServerEmailSenderPassword, config.ServerSmtpHost, config.ServerSmtpPort);
             DevMvcComponent.Mvc.Setup(config.SiteName, config.DevelopersEmails, System.Reflection.Assembly.GetExecutingAssembly(), mailServer);
             JobManager.Initialize(new MailScheduler());
             AppConfig.Setup();

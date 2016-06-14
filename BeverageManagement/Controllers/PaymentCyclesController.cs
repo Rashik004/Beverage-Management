@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using BeverageManagement.BusinessLogic;
 using BeverageManagement.ViewModel;
 using DevMvcComponent;
+using DevMvcComponent.HtmlEnhancements;
+
 namespace BeverageManagement.Controllers
 {
     public class PaymentCyclesController : Controller
@@ -46,7 +48,7 @@ namespace BeverageManagement.Controllers
 
         #region Process Payment (POST)
         [HttpPost, ValidateInput(false)]
-        public async Task<ActionResult> ProcessPayment(EmailDetailViewModel emailInfo)
+        public ActionResult ProcessPayment(EmailDetailViewModel emailInfo)
         {
 
             var config = AppConfig.Config;
@@ -54,7 +56,8 @@ namespace BeverageManagement.Controllers
             var emailBody = emailInfo.EmailBody;
             emailBody = emailBody.Replace("$amount", AppConfig.Config.DefaultBeveragePrice.ToString());
             var selectedEmployeesForPayment = (List<Employee>)TempData["SelectedEmployees"];
-
+            var css=new CssProperties("green");
+            emailBody.Replace("$html-table-style", css.GetInlineStyles());
             foreach (var employee in selectedEmployeesForPayment)
             {
                 employee.Cycle = AppConfig.Config.CurrentRunningCycle;
@@ -65,7 +68,7 @@ namespace BeverageManagement.Controllers
                     history.EmployeeID = employee.EmployeeID;
                     history.Dated = DateTime.Now;
                     db.Histories.Add(history);
-                    await Mailer.SendAsync(employee.Email, emailSubject, emailBody.Replace("$name", employee.Name));
+                    Mvc.Mailer.QuickSend(employee.Email, emailSubject, emailBody.Replace("$name", employee.Name));
                 }
             }
             try
