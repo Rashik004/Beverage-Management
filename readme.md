@@ -1,6 +1,6 @@
 Welcome to Beverage Management Application
 ===================
-Welcome to the  **[Beverage Management Application](https://github.com/Rashik004/Beverage-Management "Beverage Management Application")**. Its a simple Beverage Management system written in ASP.NET MVC by [Rashik Hasnat](https://github.com/Rashik004 "Rashik Hasnat") (as the first ASP.NET MVC application) and supervised by [Md. Alim Ul Karim](https://github.com/aukgit "Md. Alim Ul Karim github"). 
+Welcome to the  **[Beverage Management Application](https://github.com/Rashik004/Beverage-Management "Beverage Management Application")**. Its a simple Beverage Management system written in ASP.NET MVC by [Rashik Hasnat](https://github.com/Rashik004 "Rashik Hasnat") (as the first ASP.NET MVC application) and supervised by [Md. Alim Ul Karim](https://github.com/aukgit "Md. Alim Ul Karim github").
 
 ### Purpose
 
@@ -33,3 +33,15 @@ Beverage Management  Application is an application designed for automating beveg
 
 - Functionalities 1-6 are only permitted for the Admin.
 - Functionality 7 & 8 are permitted for normal users and guest users.
+
+
+**Credentials:**
+
+The id and password of the admin goes below:
+mail: rhasnat93@gmail.com
+password: 123456
+
+
+**Screenshot**
+
+![Example of jQuery server side validation.](https://github.com/Rashik004/Beverage-Management/blob/master/screenshot.JPG?raw=true)
