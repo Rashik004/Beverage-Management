@@ -11,7 +11,7 @@
 </p>
 <!-- Trigger the modal with a button -->
 <ul class="list-inline">
-    <li><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="save-btn">Save History</button></li>
+    <li><button type="button" class="btn btn-success btn-primary" data-toggle="modal" data-target="#myModal" id="save-btn">Save History</button></li>
     <li class="pull-left">
         <div class="form-group">
             <div class='input-group date datetimepicker'>
@@ -87,7 +87,7 @@
                 @using (Html.BeginForm("InsertPastHistory", "Histories")) {
                     @Html.Hidden("employeeIds", "")
                     @Html.Hidden("dated", "")
-                    <input type="submit" value="Proceed" />
+    <input type="submit" value="Proceed" class="btn btn-success btn-primary" />
                 }
             </div>
         </div>
