@@ -38,7 +38,7 @@ Beverage Management  Application is an application designed for automating beveg
 **Credentials:**
 
 The id and password of the admin goes below:
-mail: rhasnat93@gmail.com
+mail: rhasnat93@gmail.com</br>
 password: 123456
 
 

@@ -614,7 +614,6 @@
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\PaymentCycles\Details.cshtml" />
     <Content Include="Views\PaymentCycles\Index.cshtml" />
-    <Content Include="Views\Configs\Create.cshtml" />
     <Content Include="Views\PaymentCycles\ProcessPayment.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_jquery_full.cshtml" />
     <Content Include="Views\PaymentCycles\_EmailEditor.cshtml" />
