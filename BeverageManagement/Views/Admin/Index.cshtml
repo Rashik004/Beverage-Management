@@ -6,9 +6,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table bootstrap-table-convert" data-show-columns="true" data-search="true" data-pagination="true">
     <thead>
     <tr>
@@ -34,11 +32,11 @@
                     @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                    @Html.ActionLink("Make Admin", "AddAsAdmin", new { id = item.Id }) |
-                    @Html.ActionLink("Remove Admin", "RemoveFromAdmin", new { id = item.Id }) 
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info btn-xs" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-xs" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" }) |
+                    @Html.ActionLink("Make Admin", "AddAsAdmin", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" }) |
+                    @Html.ActionLink("Remove Admin", "RemoveFromAdmin", new { id = item.Id }, new { @class = "btn btn-danger btn-xs" }) 
 
 
                 </td>

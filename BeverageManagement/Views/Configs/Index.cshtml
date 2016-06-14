@@ -52,8 +52,7 @@
 
 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ConfigID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ConfigID }) 
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ConfigID },  new { @class = "btn btn-info btn-xs" }) 
                 </td>
             </tr>
         }
