@@ -50,6 +50,11 @@
       <HintPath>..\packages\FontAwesomeIcons.1.0.3\lib\FontAwesomeIcons.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -172,6 +177,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BusinessLogic\ExcelConversion.cs" />
     <Compile Include="BusinessLogic\Logic.cs" />
     <Compile Include="Common\Statics.cs" />
     <Compile Include="Constants\RoleNames.cs" />
@@ -302,6 +308,8 @@
     <Content Include="Content\css\bootstrap-datetimepicker-override.css.map">
       <DependentUpon>bootstrap-datetimepicker-override.css</DependentUpon>
     </Content>
+    <Content Include="BusinessLogic\Tempo\new.xlsx" />
+    <Content Include="Content\new.xlsx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

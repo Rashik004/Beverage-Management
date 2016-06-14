@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BeverageManagement.BusinessLogic;
 using BeverageManagement.Models;
 using BeverageManagement.Models.EntityModel;
 using DevMvcComponent;
@@ -11,6 +12,12 @@ namespace BeverageManagement.Controllers
 {
     public class EmployeesController : Controller
     {
+        public void Testing() {
+            ExcelConversion test= new ExcelConversion();
+            test.test();
+            //return View("Index");
+
+        }
         // GET: Beverage
         private BeverageManagementEntities db = new BeverageManagementEntities();
         public ActionResult Index()
