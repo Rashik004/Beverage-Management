@@ -28,7 +28,7 @@ namespace BeverageManagement.BusinessLogic {
         public void WriteToExcelFile(IQueryable<History> histories) {
             var mySheet = (Excel.Worksheet) _myBook.Sheets[1]; 
             var currenRow = 1;
-            int lastNameRow=2, totalAmount=0;
+            int lastNameRow=2, totalAmount=0, numberOfPayment=0;
             //var amountCount = histories
             //    .GroupBy(n => n.EmployeeID)
             //    .Select(g => new { Id = g.Key, Sum = g.Sum(x => x.Amount) }).ToList();
@@ -37,10 +37,12 @@ namespace BeverageManagement.BusinessLogic {
             mySheet.Cells[currenRow, 1] = "Employee Name";
             mySheet.Cells[currenRow, 2] = "Date";
             mySheet.Cells[currenRow, 3] = "Total Paid";
+            mySheet.Cells[currenRow, 4] = "Number of payment";
             mySheet.Cells[currenRow, 1].EntireColumn.Font.Bold=true;
             currenRow++;
             var lastEmployeeId = histories.FirstOrDefault().Employee.EmployeeID;
             foreach (var history in histories) {
+                numberOfPayment++;
                 totalAmount += history.Amount;
                 if (currenRow == 2) 
                 {
@@ -56,6 +58,8 @@ namespace BeverageManagement.BusinessLogic {
                     mySheet.Cells[currenRow, 1] = history.Employee.Name;
                     mySheet.Cells[currenRow, 3] = history.Employee.Cycle;
                     mySheet.Cells[lastNameRow, 3] = totalAmount;
+                    mySheet.Cells[lastNameRow, 4] = numberOfPayment-1;
+                    numberOfPayment = 1;
                     lastNameRow = currenRow;
                     totalAmount = history.Amount;
                 }
@@ -66,6 +70,7 @@ namespace BeverageManagement.BusinessLogic {
                 currenRow++;
             }
             mySheet.Cells[lastNameRow, 3] = totalAmount;
+            mySheet.Cells[lastNameRow, 4] = numberOfPayment;
 
             _myBook.Save();
         }
