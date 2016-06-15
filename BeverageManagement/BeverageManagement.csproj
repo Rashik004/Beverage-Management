@@ -308,7 +308,6 @@
     <Content Include="Content\css\bootstrap-datetimepicker-override.css.map">
       <DependentUpon>bootstrap-datetimepicker-override.css</DependentUpon>
     </Content>
-    <Content Include="BusinessLogic\Tempo\new.xlsx" />
     <Content Include="Content\new.xlsx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom.js" />

@@ -12,14 +12,18 @@ namespace BeverageManagement.Controllers
 {
     public class EmployeesController : Controller
     {
-        public void Testing() {
+        private BeverageManagementEntities db = new BeverageManagementEntities();
+        public ActionResult Testing() {
             ExcelConversion test= new ExcelConversion();
-            test.test();
-            //return View("Index");
+            try {
+                test.Test();
+            } catch (Exception ex) {
+                throw ex;
+            }
+            return View("Index", db.Employees.ToList());
 
         }
         // GET: Beverage
-        private BeverageManagementEntities db = new BeverageManagementEntities();
         public ActionResult Index()
         {
             var employees = db.Employees.ToList();
