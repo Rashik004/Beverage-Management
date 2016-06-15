@@ -99,5 +99,13 @@ namespace BeverageManagement.BusinessLogic
             return results;
         }
 
+        public IQueryable<History> GetLastTwoYearsHistories(DateTime dated) {
+            var twoYearsBack = dated.AddYears(-2);
+            var histories = db.Histories.Where(n=>n.Dated>twoYearsBack);
+            var debug =histories.Count();
+            histories = histories.Include(n => n.Employee).OrderBy(n=>n.Employee.EmployeeID);
+            debug = histories.Count();
+            return histories;
+        }
     }
 }

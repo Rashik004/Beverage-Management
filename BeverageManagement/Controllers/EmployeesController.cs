@@ -13,16 +13,16 @@ namespace BeverageManagement.Controllers
     public class EmployeesController : Controller
     {
         private BeverageManagementEntities db = new BeverageManagementEntities();
-        public ActionResult Testing() {
-            ExcelConversion test= new ExcelConversion();
-            try {
-                test.Test();
-            } catch (Exception ex) {
-                throw ex;
-            }
-            return View("Index", db.Employees.ToList());
+        //public ActionResult Testing() {
+        //    ExcelConversion test= new ExcelConversion();
+        //    try {
+        //        test.Test();
+        //    } catch (Exception ex) {
+        //        throw ex;
+        //    }
+        //    return View("Index", db.Employees.ToList());
 
-        }
+        //}
         // GET: Beverage
         public ActionResult Index()
         {

@@ -54,9 +54,9 @@ namespace BeverageManagement.Controllers
             var config = AppConfig.Config;
             var emailSubject = emailInfo.EmailSubject;
             var emailBody = emailInfo.EmailBody;
-            emailBody = emailBody.Replace("$amount", AppConfig.Config.DefaultBeveragePrice.ToString());
             var selectedEmployeesForPayment = (List<Employee>)TempData["SelectedEmployees"];
             var css=new CssProperties("green");
+            emailBody = emailBody.Replace("$amount", AppConfig.Config.DefaultBeveragePrice.ToString());
             emailBody.Replace("$html-table-style", css.GetInlineStyles());
             foreach (var employee in selectedEmployeesForPayment)
             {
@@ -79,6 +79,20 @@ namespace BeverageManagement.Controllers
             {
                 throw new Exception("We can't save the modified data.");
             }
+
+            var lastTwoYearsHistories = _logic.GetLastTwoYearsHistories(DateTime.Now);
+            var s=lastTwoYearsHistories.Count();
+            ExcelConversion emailAttachment = new ExcelConversion();
+
+            try {
+                emailAttachment.Open("Content/new.xlsx");
+            } catch (Exception ex) {
+                
+                throw ex;
+            }
+
+            emailAttachment.WriteToExcelFile(lastTwoYearsHistories);
+            emailAttachment.CloseExcelFile();
             return RedirectToAction("Index");
 
         }
