@@ -55,18 +55,18 @@ namespace BeverageManagement.Controllers
             var emailSubject = emailInfo.EmailSubject;
             var emailBody = emailInfo.EmailBody;
             var selectedEmployeesForPayment = (List<Employee>)TempData["SelectedEmployees"];
-            var css=new CssProperties("green");
             emailBody = emailBody.Replace("$amount", AppConfig.Config.DefaultBeveragePrice.ToString());
-            emailBody.Replace("$html-table-style", css.GetInlineStyles());
             foreach (var employee in selectedEmployeesForPayment)
             {
-                employee.Cycle = AppConfig.Config.CurrentRunningCycle;
+                employee.Cycle=employee.Cycle+1;
                 if (ModelState.IsValid)
                 {
                     db.Entry(employee).State = System.Data.Entity.EntityState.Modified;
                     History history = new History();
                     history.EmployeeID = employee.EmployeeID;
                     history.Dated = DateTime.Now;
+                    history.WeekNumber = AppConfig.Config.CurrentRunningCycle;
+                    history.Amount = (int)AppConfig.Config.DefaultBeveragePrice;
                     db.Histories.Add(history);
                     Mvc.Mailer.QuickSend(employee.Email, emailSubject, emailBody.Replace("$name", employee.Name));
                 }

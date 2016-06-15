@@ -20,10 +20,13 @@
                     @Html.DisplayNameFor(model => model.FirstOrDefault().Employee.IsWorking)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Employee.Cycle)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().WeekNumber)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.FirstOrDefault().Dated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Amount)
                 </th>
                 <th></th>
             </tr>
@@ -38,10 +41,15 @@
                         @Html.DisplayFor(modelItem => item.Employee.IsWorking)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Employee.Cycle)
+                        @Html.DisplayFor(modelItem => item.WeekNumber)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Dated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+
+                        
                     </td>
                     <td>
                         @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }, new { @class = "btn btn-info btn-xs" }) 

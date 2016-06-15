@@ -16,12 +16,10 @@ namespace BeverageManagement.Models.EntityModel
     {
         public int HistoryID { get; set; }
         public int EmployeeID { get; set; }
-
         public System.DateTime Dated { get; set; }
-        public int Week { get; set; }
-        public int Year { get; set; }
-        public Nullable<int> Month { get; set; }
-    
+        public int WeekNumber { get; set; }
+        public int Amount { get; set; }
+
         public virtual Employee Employee { get; set; }
     }
 }

@@ -43,9 +43,8 @@
           <Property Name="HistoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeID" Type="int" Nullable="false" />
           <Property Name="Dated" Type="date" Nullable="false" />
-          <Property Name="Week" Type="int" Nullable="false" />
-          <Property Name="Year" Type="int" Nullable="false" />
-          <Property Name="Month" Type="int" />
+          <Property Name="WeekNumber" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_History_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
@@ -122,9 +121,8 @@
           <Property Name="HistoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="Dated" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Week" Type="Int32" Nullable="false" />
-          <Property Name="Year" Type="Int32" Nullable="false" />
-          <Property Name="Month" Type="Int32" />
+          <Property Name="WeekNumber" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="BeverageManagementModel.FK_History_Employee" FromRole="History" ToRole="Employee" />
         </EntityType>
         <Association Name="FK_History_Employee">
@@ -182,9 +180,8 @@
           <EntitySetMapping Name="Histories">
             <EntityTypeMapping TypeName="BeverageManagementModel.History">
               <MappingFragment StoreEntitySet="History">
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="WeekNumber" ColumnName="WeekNumber" />
                 <ScalarProperty Name="Dated" ColumnName="Dated" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
