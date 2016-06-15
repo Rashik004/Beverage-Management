@@ -27,21 +27,27 @@ namespace BeverageManagement.BusinessLogic {
 
         public void WriteToExcelFile(IQueryable<History> histories) {
             var mySheet = (Excel.Worksheet) _myBook.Sheets[1]; 
-            mySheet.UsedRange.ClearContents();
             var currenRow = 1;
-           
+            int lastNameRow=2, totalAmount=0;
+            //var amountCount = histories
+            //    .GroupBy(n => n.EmployeeID)
+            //    .Select(g => new { Id = g.Key, Sum = g.Sum(x => x.Amount) }).ToList();
+            //var s=amountCount[0].Sum;
+            mySheet.UsedRange.ClearContents();
             mySheet.Cells[currenRow, 1] = "Employee Name";
             mySheet.Cells[currenRow, 2] = "Date";
             mySheet.Cells[currenRow, 3] = "Total Paid";
             mySheet.Cells[currenRow, 1].EntireColumn.Font.Bold=true;
             currenRow++;
             var lastEmployeeId = histories.FirstOrDefault().Employee.EmployeeID;
-            foreach (var history in histories) 
-            {
+            foreach (var history in histories) {
+                totalAmount += history.Amount;
                 if (currenRow == 2) 
                 {
                     mySheet.Cells[currenRow, 1] = history.Employee.Name;
                     mySheet.Cells[currenRow, 3] = history.Employee.Cycle;
+                    lastNameRow = currenRow;
+                    totalAmount = history.Amount;
                 }
                 else if (lastEmployeeId != history.Employee.EmployeeID) 
                 {
@@ -49,15 +55,18 @@ namespace BeverageManagement.BusinessLogic {
                     lastEmployeeId = history.Employee.EmployeeID;
                     mySheet.Cells[currenRow, 1] = history.Employee.Name;
                     mySheet.Cells[currenRow, 3] = history.Employee.Cycle;
+                    mySheet.Cells[lastNameRow, 3] = totalAmount;
+                    lastNameRow = currenRow;
+                    totalAmount = history.Amount;
                 }
-
                 string debug = history.Dated.ToString("dd-MMM-yy");
-                //debug = "hi there!!";
                
                 mySheet.Cells[currenRow, 2] = debug;
                 
                 currenRow++;
             }
+            mySheet.Cells[lastNameRow, 3] = totalAmount;
+
             _myBook.Save();
         }
 
