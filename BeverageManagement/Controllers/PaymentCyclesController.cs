@@ -90,7 +90,7 @@ namespace BeverageManagement.Controllers
 
             Mailer mailer=new Mailer();
             mailer.EmailDetail = emailInfo;
-            mailer.SetAttachmentName(AppConfig.Config.EmailAttachmentName);
+            mailer.SetAttachmentName(AppConfig.Config.EmailAttachmentName + ".xlsx");
             mailer.sendMailToAll(selectedEmployeesForPayment);
             return RedirectToAction("Index");
 
