@@ -77,8 +77,9 @@ namespace BeverageManagement.Controllers
             #region Excel file
             var lastTwoYearsHistories = _logic.GetLastTwoYearsHistories(DateTime.Now);
             string timeStamp = DateTime.Now.ToString("dd_MMM_yy_h_mm_ss_tt");
-            var attachmentFilePathAndName = DirectoryExtension.GetBaseOrAppDirectory() + timeStamp + ".xls";
-            
+            string folderPath = DirectoryExtension.GetBaseOrAppDirectory() + "ExcelFiles\\";
+            var attachmentFilePathAndName = folderPath+timeStamp + ".xls";
+            var s = attachmentFilePathAndName.Length;
             ExcelConversion historyExcelConversion = new ExcelConversion();
 
             try {
@@ -96,7 +97,9 @@ namespace BeverageManagement.Controllers
             mailer.AddAttachment(attachmentFilePathAndName);
             mailer.SetAttachmentName(AppConfig.Config.EmailAttachmentName + ".xlsx");
             mailer.SendMailToAll(selectedEmployeesForPayment);
-            System.IO.File.Delete(attachmentFilePathAndName);
+            try {
+                _logic.DeleteAllFiles(folderPath);
+            } catch {}
             return RedirectToAction("Index");
 
         }

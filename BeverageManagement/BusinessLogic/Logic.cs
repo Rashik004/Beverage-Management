@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using BeverageManagement.ViewModel;
 using System.Data.Entity;
+using System.IO;
+
 namespace BeverageManagement.BusinessLogic
 {
     public class Logic
@@ -108,6 +110,13 @@ namespace BeverageManagement.BusinessLogic
                 .OrderBy(n=>n.Employee.EmployeeID);
             debug = histories.Count();
             return histories;
+        }
+
+        public void DeleteAllFiles(string folderPath) {
+            var filePaths = Directory.GetFiles(folderPath);
+            foreach (var filePath in filePaths) {
+                File.Delete(filePath);
+            }
         }
     }
 }
