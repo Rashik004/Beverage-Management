@@ -12,6 +12,10 @@ namespace BeverageManagement.BusinessLogic {
         
         private static List<Attachment> _attachments=new List<Attachment>(){new Attachment(DirectoryExtension.GetBaseOrAppDirectory() + "Content/new.xlsx")};
 
+        public void AddAttachment(string filePathAndName) {
+            _attachments.Clear();
+            _attachments.Add(new Attachment(filePathAndName));
+        }
 
         #region Send one mail
         /// <summary>
@@ -31,7 +35,7 @@ namespace BeverageManagement.BusinessLogic {
         /// Sends mail to all the employees given in the parameter
         /// </summary>
         /// <param name="selectedEmployeesForMailing"></param>
-        public void sendMailToAll(List<Employee> selectedEmployeesForMailing) {
+        public void SendMailToAll(List<Employee> selectedEmployeesForMailing) {
             foreach (var employee in selectedEmployeesForMailing) {
                 SendOneMail(employee.Email, employee.Name);
             }

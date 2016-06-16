@@ -8,6 +8,7 @@ using BeverageManagement.Models.EntityModel;
 using DevMvcComponent.Pagination;
 using BeverageManagement.BusinessLogic;
 using BeverageManagement.ViewModel;
+using DevMvcComponent.Miscellaneous;
 
 namespace BeverageManagement.Controllers
 {
@@ -72,26 +73,30 @@ namespace BeverageManagement.Controllers
                 throw new Exception("We can't save the modified data.");
             }
 
+            
             #region Excel file
             var lastTwoYearsHistories = _logic.GetLastTwoYearsHistories(DateTime.Now);
-            var s = lastTwoYearsHistories.Count();
-            ExcelConversion emailAttachment = new ExcelConversion();
+            string timeStamp = DateTime.Now.ToString("dd_MMM_yy_h_mm_ss_tt");
+            var attachmentFilePathAndName = DirectoryExtension.GetBaseOrAppDirectory() + timeStamp + ".xls";
+            
+            ExcelConversion historyExcelConversion = new ExcelConversion();
 
             try {
-                emailAttachment.Open(AppConfig.Config.EmailAttachmentPath);
+                historyExcelConversion.WriteToExcelFile(lastTwoYearsHistories, attachmentFilePathAndName);
             } catch (Exception ex) {
 
                 throw ex;
             }
 
-            emailAttachment.WriteToExcelFile(lastTwoYearsHistories);
-            emailAttachment.CloseExcelFile(); 
+            
             #endregion
 
             Mailer mailer=new Mailer();
             mailer.EmailDetail = emailInfo;
+            mailer.AddAttachment(attachmentFilePathAndName);
             mailer.SetAttachmentName(AppConfig.Config.EmailAttachmentName + ".xlsx");
-            mailer.sendMailToAll(selectedEmployeesForPayment);
+            mailer.SendMailToAll(selectedEmployeesForPayment);
+            System.IO.File.Delete(attachmentFilePathAndName);
             return RedirectToAction("Index");
 
         }
