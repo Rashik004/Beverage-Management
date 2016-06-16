@@ -23,7 +23,9 @@
           <Property Name="DefaultEmailBody" Type="nvarchar(max)" Nullable="false" />
           <Property Name="EmailTemplateLocation" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="SiteName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="DefaultEmailSubject" Type="nvarchar" MaxLength="100" />
+          <Property Name="DefaultEmailSubject" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmailAttachmentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailAttachmentPath" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -101,7 +103,9 @@
           <Property Name="DefaultEmailBody" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="EmailTemplateLocation" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="SiteName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DefaultEmailSubject" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DefaultEmailSubject" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAttachmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAttachmentPath" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -149,6 +153,8 @@
           <EntitySetMapping Name="Configs">
             <EntityTypeMapping TypeName="BeverageManagementModel.Config">
               <MappingFragment StoreEntitySet="Config">
+                <ScalarProperty Name="EmailAttachmentPath" ColumnName="EmailAttachmentPath" />
+                <ScalarProperty Name="EmailAttachmentName" ColumnName="EmailAttachmentName" />
                 <ScalarProperty Name="DefaultEmailSubject" ColumnName="DefaultEmailSubject" />
                 <ScalarProperty Name="SiteName" ColumnName="SiteName" />
                 <ScalarProperty Name="EmailTemplateLocation" ColumnName="EmailTemplateLocation" />

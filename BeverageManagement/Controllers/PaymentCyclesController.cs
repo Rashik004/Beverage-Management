@@ -78,7 +78,7 @@ namespace BeverageManagement.Controllers
             ExcelConversion emailAttachment = new ExcelConversion();
 
             try {
-                emailAttachment.Open("Content/new.xlsx");
+                emailAttachment.Open(AppConfig.Config.EmailAttachmentPath);
             } catch (Exception ex) {
 
                 throw ex;
@@ -90,6 +90,7 @@ namespace BeverageManagement.Controllers
 
             Mailer mailer=new Mailer();
             mailer.EmailDetail = emailInfo;
+            mailer.SetAttachmentName(AppConfig.Config.EmailAttachmentName);
             mailer.sendMailToAll(selectedEmployeesForPayment);
             return RedirectToAction("Index");
 

@@ -36,6 +36,26 @@
         </div>
         <!-- #endregion -->
 
+        <!-- #region Email Attachment Name -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailAttachmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmailAttachmentName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmailAttachmentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- #endregion -->
+
+        <!-- #region Email Attachment Path -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailAttachmentPath, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmailAttachmentPath, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmailAttachmentPath, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- #endregion -->
+
         <!-- #region Default Email Body -->
         <div class="form-group">
             @Html.LabelFor(model => model.DefaultEmailBody, htmlAttributes: new { @class = "control-label col-md-2" })
