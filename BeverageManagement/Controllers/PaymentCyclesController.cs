@@ -59,6 +59,7 @@ namespace BeverageManagement.Controllers
             foreach (var employee in selectedEmployeesForPayment)
             {
                 employee.Cycle=employee.Cycle+1;
+                employee.LastPaymentDate=DateTime.Now;
                 if (ModelState.IsValid)
                 {
                     db.Entry(employee).State = System.Data.Entity.EntityState.Modified;

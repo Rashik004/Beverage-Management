@@ -13,27 +13,10 @@ namespace BeverageManagement.Controllers
     public class EmployeesController : Controller
     {
         private BeverageManagementEntities db = new BeverageManagementEntities();
-        //public ActionResult Testing() {
-        //    ExcelConversion test= new ExcelConversion();
-        //    try {
-        //        test.Test();
-        //    } catch (Exception ex) {
-        //        throw ex;
-        //    }
-        //    return View("Index", db.Employees.ToList());
-
-        //}
-        // GET: Beverage
         public ActionResult Index()
         {
             var employees = db.Employees.ToList();
             return View(employees);
-        }
-
-        // GET: Beverage/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
         }
 
         // GET: Beverage/Create
@@ -63,7 +46,8 @@ namespace BeverageManagement.Controllers
 
             }
 
-            return View(employee);
+            return RedirectToAction("Index");
+
 
         }
 
@@ -105,18 +89,17 @@ namespace BeverageManagement.Controllers
 
         // POST: Beverage/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        public ActionResult Delete(int id, FormCollection collection) {
+            var employee = db.Employees.Find(id);
+            db.Employees.Remove(employee);
+            try {
+                db.SaveChanges();
+            }
+            catch(Exception exception ) {
+                throw exception;
+            }
+            return RedirectToAction("Index");
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

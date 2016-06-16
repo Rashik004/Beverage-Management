@@ -35,6 +35,7 @@ namespace BeverageManagement.Models.EntityModel
         [StringLength(255)]
         public string Email { get; set; }
         public System.DateTime JoiningDate { get; set; }
+        public System.DateTime LastPaymentDate { get; set; }
         public virtual ICollection<History> Histories { get; set; }
     }
 }

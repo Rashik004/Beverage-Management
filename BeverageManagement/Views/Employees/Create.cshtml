@@ -55,7 +55,9 @@
                 @Html.ValidationMessageFor(model => model.JoiningDate, "", new { @class = "text-danger" })
             </div>
         </div>
+        @Html.HiddenFor(model => model.LastPaymentDate, new {@value=DateTime.Now.AddYears(-1)})
 
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />

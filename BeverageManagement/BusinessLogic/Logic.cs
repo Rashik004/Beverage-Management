@@ -57,7 +57,7 @@ namespace BeverageManagement.BusinessLogic
             var oneMonthback = currentDateTime.AddMonths(-1);
             var pagedEmployees = employees
                         .Where(e => e.Cycle < currentRunningCycle && e.IsWorking == true && !(e.JoiningDate>=oneMonthback && e.JoiningDate<=currentDateTime))
-                        .OrderBy(n => n.JoiningDate)
+                        .OrderBy(n => n.LastPaymentDate)
                         .GetPageData(pageInfo).ToList();
             return pagedEmployees;
         } 
