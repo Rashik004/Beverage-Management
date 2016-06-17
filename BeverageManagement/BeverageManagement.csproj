@@ -179,7 +179,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="BusinessLogic\ExcelConversion.cs" />
     <Compile Include="BusinessLogic\Logic.cs" />
-    <Compile Include="BusinessLogic\Mailer.cs" />
     <Compile Include="Common\Statics.cs" />
     <Compile Include="Constants\RoleNames.cs" />
     <Compile Include="Controllers\AdminController.cs" />

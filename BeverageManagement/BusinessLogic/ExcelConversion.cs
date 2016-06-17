@@ -5,18 +5,6 @@ using BeverageManagement.Models.EntityModel;
 using Excel=Microsoft.Office.Interop.Excel;
 namespace BeverageManagement.BusinessLogic {
     public  class ExcelConversion {
-        //public void Open(string localPath) {
-        //    _myApp = new Excel.Application();
-        //    _myApp.Visible = false;
-        //    string path = DirectoryExtension.GetBaseOrAppDirectory() +localPath;
-        //    try {
-        //        _myBook = _myApp.Workbooks.Open(path);
-        //    } catch (Exception ex) {
-                
-        //        throw ex;
-        //    }
-
-        //}
         private Excel.Workbook _myBook;
         private Excel.Application _myApp;
         private string _filePath;
@@ -72,7 +60,6 @@ namespace BeverageManagement.BusinessLogic {
             foreach (Excel.Workbook workbook in _myApp.Workbooks) {
                 workbook.Close(0);
             }
-           // _myBook.Close(true, misValue, misValue);
             _myApp.Quit();
 
         }

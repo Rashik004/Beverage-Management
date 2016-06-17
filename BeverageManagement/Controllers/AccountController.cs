@@ -1,11 +1,7 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using BeverageManagement.Common;
 using BeverageManagement.Constants;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -60,18 +56,10 @@ namespace BeverageManagement.Controllers
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl) {
-
-            //roleManager.Create(new IdentityRole()
-            //{
-            //    Name = "Admin"
-            //});
-            
             Users.Roles.Create(new IdentityRole()
             {
                 Name = RoleNames.Admin
             });
-            //var user = Users.Manage.FindByEmail("akarim@relisource.com");
-            //Users.Manage.AddToRole(user.Id, RoleNames.Admin);
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }

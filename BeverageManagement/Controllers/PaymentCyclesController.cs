@@ -66,8 +66,7 @@ namespace BeverageManagement.Controllers {
                 throw new Exception("We can't save the modified data.");
             }
 
-            Console.WriteLine("hello Worldd!");
-            #region Excel file
+            #region Excel file Creation
             var lastTwoYearsHistories = _logic.GetLastTwoYearsHistories(DateTime.Now);
             string timeStamp = DateTime.Now.ToString("dd_MMM_yy_h_mm_ss_tt");
             string folderPath = DirectoryExtension.GetBaseOrAppDirectory() + "ExcelFiles\\";
@@ -80,15 +79,15 @@ namespace BeverageManagement.Controllers {
 
                 throw ex;
             }
-            var s = attachmentFilePathAndName.Length;
 
 
             #endregion
 
+            #region Thread for mailing and excel deletion
             var thread = new Thread(() => {
                 List<Attachment> attachments = new List<Attachment>() { new Attachment(attachmentFilePathAndName) };
                 var employeeEmails = selectedEmployeesForPayment.Select(n => n.Email).ToArray();
-                var mailWrapper=Mvc.Mailer.GetMailSendingWrapper(employeeEmails, emailInfo.EmailSubject, emailInfo.EmailBody, null, attachments,MailingType.MailBlindCarbonCopy);
+                var mailWrapper = Mvc.Mailer.GetMailSendingWrapper(employeeEmails, emailInfo.EmailSubject, emailInfo.EmailBody, null, attachments, MailingType.MailBlindCarbonCopy);
                 Mvc.Mailer.SendMail(mailWrapper, false);
                 mailWrapper.MailMessage.Dispose();
                 mailWrapper.MailServer.Dispose();
@@ -98,14 +97,10 @@ namespace BeverageManagement.Controllers {
                 historyExcelConversion.Dispose();
 
 
-            });
-             s = attachmentFilePathAndName.Length;
+            }); 
+            #endregion
 
             thread.Start();
-             s = attachmentFilePathAndName.Length;
-            //try {
-            //    _logic.DeleteAllFiles(folderPath);
-            //} catch { }
             return RedirectToAction("Index");
 
         }
