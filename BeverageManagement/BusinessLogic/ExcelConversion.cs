@@ -21,14 +21,14 @@ namespace BeverageManagement.BusinessLogic {
         //    }
 
         //}
-
-
+        private Excel.Workbook _myBook;
+        private Excel.Application _myApp;
         public void WriteToExcelFile(IQueryable<History> histories, string excelFilePathAndName) {
 
             object misValue = System.Reflection.Missing.Value;
-            Excel.Application myApp = new Excel.Application();
-            Excel.Workbook myBook= myApp.Workbooks.Add(misValue);
-            var mySheet = (Excel.Worksheet) myBook.Sheets[1]; 
+            _myApp = new Excel.Application();
+            _myBook= _myApp.Workbooks.Add(misValue);
+            var mySheet = (Excel.Worksheet) _myBook.Sheets[1]; 
             var currenRow = 1;
             var lastEmployeeId = histories.FirstOrDefault().Employee.EmployeeID;
             int lastNameRow = 2, totalAmount = 0, numberOfPayment = 0;
@@ -71,16 +71,31 @@ namespace BeverageManagement.BusinessLogic {
             }
             mySheet.Cells[lastNameRow, 3] = totalAmount;
             mySheet.Cells[lastNameRow, 4] = numberOfPayment;
-            myBook.SaveAs(excelFilePathAndName, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
-            myBook.Close(true, misValue, misValue);
-            myApp.Quit();
-            releaseObject(myBook);
-            releaseObject(myApp);
+            _myBook.SaveAs(excelFilePathAndName, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+            _myBook.Close(true, misValue, misValue);
+            _myApp.Quit();
+
         }
 
 
 
-
+        public void closeFile() {
+            foreach (Excel.Workbook _workbook in _myApp.Workbooks) {
+                _workbook.Close(0);
+            }
+            _myApp = null;
+            var process = System.Diagnostics.Process.GetProcessesByName("Excel");
+            foreach (var p in process) {
+                if (!string.IsNullOrEmpty(p.ProcessName)) {
+                    try {
+                        p.Kill();
+                    } catch (Exception ex) {
+                        throw ex;
+                    }
+                }
+            }
+            GC.Collect();
+        }
 
         private void releaseObject(object obj) {
             try {

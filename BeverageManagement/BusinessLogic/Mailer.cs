@@ -10,7 +10,7 @@ namespace BeverageManagement.BusinessLogic {
     public class Mailer {
         public EmailDetailViewModel EmailDetail { get; set; }
         
-        private static List<Attachment> _attachments=new List<Attachment>(){new Attachment(DirectoryExtension.GetBaseOrAppDirectory() + "Content/new.xlsx")};
+        private static List<Attachment> _attachments=new List<Attachment>();
 
         public void AddAttachment(string filePathAndName) {
             _attachments.Clear();

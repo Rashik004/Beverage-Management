@@ -97,9 +97,11 @@ namespace BeverageManagement.Controllers
             mailer.AddAttachment(attachmentFilePathAndName);
             mailer.SetAttachmentName(AppConfig.Config.EmailAttachmentName + ".xlsx");
             mailer.SendMailToAll(selectedEmployeesForPayment);
+            historyExcelConversion.closeFile();
+           // System.IO.File.Delete(attachmentFilePathAndName);
             try {
                 _logic.DeleteAllFiles(folderPath);
-            } catch {}
+            } catch { }
             return RedirectToAction("Index");
 
         }

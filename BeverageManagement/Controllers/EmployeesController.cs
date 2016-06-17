@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BeverageManagement.BusinessLogic;
-using BeverageManagement.Models;
 using BeverageManagement.Models.EntityModel;
-using DevMvcComponent;
-using BeverageManagement.Constants;
 namespace BeverageManagement.Controllers
 {
     public class EmployeesController : Controller

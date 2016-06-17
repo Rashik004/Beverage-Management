@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.ModelBinding;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using BeverageManagement.Constants;
 using BeverageManagement.Models.EntityModel;
-using Microsoft.AspNet.Identity;
 
 namespace BeverageManagement.Controllers
 {
