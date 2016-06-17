@@ -73,6 +73,7 @@ namespace BeverageManagement.BusinessLogic
             {
                 ItemsInPage = perCyclePerson,
                 PageNumber = pageNumber,
+                
             };
             return pageInfo;
         } 

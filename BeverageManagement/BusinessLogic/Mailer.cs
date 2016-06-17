@@ -9,8 +9,8 @@ using DevMvcComponent.Miscellaneous;
 namespace BeverageManagement.BusinessLogic {
     public class Mailer {
         public EmailDetailViewModel EmailDetail { get; set; }
-        
-        private static List<Attachment> _attachments=new List<Attachment>();
+
+        private static List<Attachment> _attachments = new List<Attachment>();
 
         public void AddAttachment(string filePathAndName) {
             _attachments.Clear();
@@ -26,7 +26,7 @@ namespace BeverageManagement.BusinessLogic {
         private void SendOneMail(string mailTo, string receiverName) {
             Mvc.Mailer.QuickSend(mailTo, EmailDetail.EmailSubject, EmailDetail.EmailBody.Replace("$name", receiverName), MailingType.RegularMail, true, _attachments);
 
-        } 
+        }
         #endregion
 
 
@@ -39,7 +39,7 @@ namespace BeverageManagement.BusinessLogic {
             foreach (var employee in selectedEmployeesForMailing) {
                 SendOneMail(employee.Email, employee.Name);
             }
-        } 
+        }
         #endregion
 
         public void SetAttachmentName(string attachmentName) {

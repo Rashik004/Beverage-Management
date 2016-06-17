@@ -3,37 +3,36 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Threading;
 using System.Web.Mvc;
 using BeverageManagement.Models.EntityModel;
 using DevMvcComponent.Pagination;
 using BeverageManagement.BusinessLogic;
 using BeverageManagement.ViewModel;
+using DevMvcComponent;
+using DevMvcComponent.Enums;
 using DevMvcComponent.Miscellaneous;
 
-namespace BeverageManagement.Controllers
-{
-    public class PaymentCyclesController : Controller
-    {
+namespace BeverageManagement.Controllers {
+    public class PaymentCyclesController : Controller {
         #region Attributes
         private BeverageManagementEntities db = new BeverageManagementEntities();
         private Logic _logic;
         #endregion
 
         #region Constructor
-        public PaymentCyclesController()
-        {
+        public PaymentCyclesController() {
             _logic = new Logic(db);
         }
         #endregion
 
         #region Process Payment (GET)
-        public ActionResult ProcessPayment()
-        {
+        public ActionResult ProcessPayment() {
             var config = AppConfig.Config;
             bool isCycleChanged;
             var employees = _logic.GetFinalSelectedEmployeesForCycle(config.PerCyclePerson, config.CurrentRunningCycle, out isCycleChanged);
-            if (isCycleChanged)
-            {
+            if (isCycleChanged) {
                 config.CurrentRunningCycle++;
                 AppConfig.SaveConfig();
             }
@@ -44,42 +43,35 @@ namespace BeverageManagement.Controllers
 
         #region Process Payment (POST)
         [HttpPost, ValidateInput(false)]
-        public ActionResult ProcessPayment(EmailDetailViewModel emailInfo)
-        {         
-            var selectedEmployeesForPayment = (List<Employee>)TempData["SelectedEmployees"];
+        public ActionResult ProcessPayment(EmailDetailViewModel emailInfo) {
+            var selectedEmployeesForPayment = (List<Employee>) TempData["SelectedEmployees"];
             emailInfo.EmailBody = emailInfo.EmailBody.Replace("$amount", AppConfig.Config.DefaultBeveragePrice.ToString());
 
-            foreach (var employee in selectedEmployeesForPayment)
-            {
-                employee.Cycle=employee.Cycle+1;
-                employee.LastPaymentDate=DateTime.Now;
-                if (ModelState.IsValid)
-                {
+            foreach (var employee in selectedEmployeesForPayment) {
+                employee.Cycle = employee.Cycle + 1;
+                employee.LastPaymentDate = DateTime.Now;
+                if (ModelState.IsValid) {
                     db.Entry(employee).State = System.Data.Entity.EntityState.Modified;
                     History history = new History();
                     history.EmployeeID = employee.EmployeeID;
                     history.Dated = DateTime.Now;
                     history.WeekNumber = AppConfig.Config.CurrentRunningCycle;
-                    history.Amount = (int)AppConfig.Config.DefaultBeveragePrice;
+                    history.Amount = (int) AppConfig.Config.DefaultBeveragePrice;
                     db.Histories.Add(history);
                 }
             }
-            try
-            {
+            try {
                 db.SaveChanges();
-            }
-            catch
-            {
+            } catch {
                 throw new Exception("We can't save the modified data.");
             }
 
-            
+            Console.WriteLine("hello Worldd!");
             #region Excel file
             var lastTwoYearsHistories = _logic.GetLastTwoYearsHistories(DateTime.Now);
             string timeStamp = DateTime.Now.ToString("dd_MMM_yy_h_mm_ss_tt");
             string folderPath = DirectoryExtension.GetBaseOrAppDirectory() + "ExcelFiles\\";
-            var attachmentFilePathAndName = folderPath+timeStamp + ".xls";
-            var s = attachmentFilePathAndName.Length;
+            var attachmentFilePathAndName = folderPath + timeStamp + ".xls";
             ExcelConversion historyExcelConversion = new ExcelConversion();
 
             try {
@@ -88,28 +80,39 @@ namespace BeverageManagement.Controllers
 
                 throw ex;
             }
+            var s = attachmentFilePathAndName.Length;
 
-            
+
             #endregion
 
-            Mailer mailer=new Mailer();
-            mailer.EmailDetail = emailInfo;
-            mailer.AddAttachment(attachmentFilePathAndName);
-            mailer.SetAttachmentName(AppConfig.Config.EmailAttachmentName + ".xlsx");
-            mailer.SendMailToAll(selectedEmployeesForPayment);
-            historyExcelConversion.closeFile();
-           // System.IO.File.Delete(attachmentFilePathAndName);
-            try {
-                _logic.DeleteAllFiles(folderPath);
-            } catch { }
+            var thread = new Thread(() => {
+                List<Attachment> attachments = new List<Attachment>() { new Attachment(attachmentFilePathAndName) };
+                var employeeEmails = selectedEmployeesForPayment.Select(n => n.Email).ToArray();
+                var mailWrapper=Mvc.Mailer.GetMailSendingWrapper(employeeEmails, emailInfo.EmailSubject, emailInfo.EmailBody, null, attachments,MailingType.MailBlindCarbonCopy);
+                Mvc.Mailer.SendMail(mailWrapper, false);
+                mailWrapper.MailMessage.Dispose();
+                mailWrapper.MailServer.Dispose();
+                attachments[0] = null;
+                attachments = null;
+                GC.Collect();
+                historyExcelConversion.Dispose();
+
+
+            });
+             s = attachmentFilePathAndName.Length;
+
+            thread.Start();
+             s = attachmentFilePathAndName.Length;
+            //try {
+            //    _logic.DeleteAllFiles(folderPath);
+            //} catch { }
             return RedirectToAction("Index");
 
         }
         #endregion
 
         #region Index or List methods
-        public ActionResult Index(int page = 1)
-        {
+        public ActionResult Index(int page = 1) {
 
             var config = AppConfig.Config;
             var employees = db.Employees;
@@ -120,22 +123,19 @@ namespace BeverageManagement.Controllers
                                     .OrderBy(e => e.Dated)
                                     .GetPageData(pageInfo).ToList();
 
-            ViewBag.paginationHtml = new MvcHtmlString(Pagination.GetList(pageInfo, url: "?page=@page"));
+            ViewBag.paginationHtml = new MvcHtmlString(Pagination.GetList(pageInfo, url: "?page=@page", maxNumbersOfPagesShow:8));
 
             return View(employeePaymentHistory);
         }
         #endregion
 
         #region Details
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Details(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Employee employee = db.Employees.Find(id);
-            if (employee == null)
-            {
+            if (employee == null) {
                 return HttpNotFound();
             }
             return View(employee);
@@ -144,10 +144,8 @@ namespace BeverageManagement.Controllers
 
 
         #region Dispose
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
                 db.Dispose();
             }
             base.Dispose(disposing);

@@ -1,4 +1,5 @@
-﻿using System
+﻿using System;
+using System.IO;
 using System.Linq;
 using BeverageManagement.Models.EntityModel;
 using Excel=Microsoft.Office.Interop.Excel;
@@ -18,8 +19,9 @@ namespace BeverageManagement.BusinessLogic {
         //}
         private Excel.Workbook _myBook;
         private Excel.Application _myApp;
+        private string _filePath;
         public void WriteToExcelFile(IQueryable<History> histories, string excelFilePathAndName) {
-
+            _filePath = excelFilePathAndName;
             object misValue = System.Reflection.Missing.Value;
             _myApp = new Excel.Application();
             _myBook= _myApp.Workbooks.Add(misValue);
@@ -67,17 +69,18 @@ namespace BeverageManagement.BusinessLogic {
             mySheet.Cells[lastNameRow, 3] = totalAmount;
             mySheet.Cells[lastNameRow, 4] = numberOfPayment;
             _myBook.SaveAs(excelFilePathAndName, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
-            _myBook.Close(true, misValue, misValue);
+            foreach (Excel.Workbook workbook in _myApp.Workbooks) {
+                workbook.Close(0);
+            }
+           // _myBook.Close(true, misValue, misValue);
             _myApp.Quit();
 
         }
 
 
 
-        public void closeFile() {
-            foreach (Excel.Workbook _workbook in _myApp.Workbooks) {
-                _workbook.Close(0);
-            }
+        private void CloseFile() {
+
             _myApp = null;
             var process = System.Diagnostics.Process.GetProcessesByName("Excel");
             foreach (var p in process) {
@@ -92,15 +95,9 @@ namespace BeverageManagement.BusinessLogic {
             GC.Collect();
         }
 
-        private void releaseObject(object obj) {
-            try {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
-                obj = null;
-            } catch (Exception ex) {
-                obj = null;
-            } finally {
-                GC.Collect();
-            }
+        public void Dispose() {
+            CloseFile();
+            File.Delete(_filePath);
         }
 
     }

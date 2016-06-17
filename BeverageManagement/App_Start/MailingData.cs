@@ -7,12 +7,12 @@ namespace BeverageManagement.Models
 {
     public class MailingData
     {
-        public string senderEmail;
-        public string senderPassword;
+        public string SenderEmail;
+        public string SenderPassword;
         MailingData (string email="rhasnatauto@gmail.com", string password="rashik1234")
         {
-            senderEmail = email;
-            senderPassword = password;
+            SenderEmail = email;
+            SenderPassword = password;
         }
 
     }
