@@ -15,6 +15,7 @@ using DevMvcComponent.Enums;
 using DevMvcComponent.Miscellaneous;
 
 namespace BeverageManagement.Controllers {
+    [Authorize] // authentication or login : must login
     public class PaymentCyclesController : Controller {
         #region Attributes
         private BeverageManagementEntities db = new BeverageManagementEntities();

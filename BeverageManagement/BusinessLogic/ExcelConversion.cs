@@ -27,35 +27,25 @@ namespace BeverageManagement.BusinessLogic {
             currenRow++;
             
             foreach (var history in histories) {
-                numberOfPayment++;
-                totalAmount += history.Amount;
                 if (currenRow == 2) 
                 {
                     mySheet.Cells[currenRow, 1] = history.Employee.Name;
-                    mySheet.Cells[currenRow, 3] = history.Employee.Cycle;
-                    lastNameRow = currenRow;
-                    totalAmount = history.Amount;
+                    mySheet.Cells[currenRow, 4] = history.Employee.Cycle;
                 }
                 else if (lastEmployeeId != history.Employee.EmployeeID) 
                 {
                     currenRow++;
                     lastEmployeeId = history.Employee.EmployeeID;
                     mySheet.Cells[currenRow, 1] = history.Employee.Name;
-                    mySheet.Cells[currenRow, 3] = history.Employee.Cycle;
-                    mySheet.Cells[lastNameRow, 3] = totalAmount-history.Amount;
-                    mySheet.Cells[lastNameRow, 4] = numberOfPayment-1;
-                    numberOfPayment = 1;
-                    lastNameRow = currenRow;
-                    totalAmount = history.Amount;
+                    mySheet.Cells[currenRow, 4] = history.Employee.Cycle;
                 }
 
                 string debug = history.Dated.ToString("dd-MMM-yy");
                 mySheet.Cells[currenRow, 2] = debug;
+                mySheet.Cells[currenRow, 3] = history.Amount;
                 
                 currenRow++;
             }
-            mySheet.Cells[lastNameRow, 3] = totalAmount;
-            mySheet.Cells[lastNameRow, 4] = numberOfPayment;
             _myBook.SaveAs(excelFilePathAndName, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
             foreach (Excel.Workbook workbook in _myApp.Workbooks) {
                 workbook.Close(0);
