@@ -57,6 +57,6 @@ namespace BeverageManagement.Models.EntityModel
         public string SiteName { get; set; }
         public string DefaultEmailSubject { get; set; }
         public string EmailAttachmentName { get; set; }
-        public string EmailAttachmentPath { get; set; }
+
     }
 }

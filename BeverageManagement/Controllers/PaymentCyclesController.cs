@@ -12,6 +12,7 @@ using BeverageManagement.BusinessLogic;
 using BeverageManagement.ViewModel;
 using DevMvcComponent;
 using DevMvcComponent.Enums;
+using DevMvcComponent.Mail;
 using DevMvcComponent.Miscellaneous;
 
 namespace BeverageManagement.Controllers {
@@ -47,7 +48,7 @@ namespace BeverageManagement.Controllers {
         public ActionResult ProcessPayment(EmailDetailViewModel emailInfo) {
             var selectedEmployeesForPayment = (List<Employee>) TempData["SelectedEmployees"];
             emailInfo.EmailBody = emailInfo.EmailBody.Replace("$amount", AppConfig.Config.DefaultBeveragePrice.ToString());
-
+            
             foreach (var employee in selectedEmployeesForPayment) {
                 employee.Cycle = employee.Cycle + 1;
                 employee.LastPaymentDate = DateTime.Now;
@@ -87,9 +88,15 @@ namespace BeverageManagement.Controllers {
             #region Thread for mailing and excel deletion
             var thread = new Thread(() => {
                 List<Attachment> attachments = new List<Attachment>() { new Attachment(attachmentFilePathAndName) };
-                var employeeEmails = selectedEmployeesForPayment.Select(n => n.Email).ToArray();
-                var mailWrapper = Mvc.Mailer.GetMailSendingWrapper(employeeEmails, emailInfo.EmailSubject, emailInfo.EmailBody, null, attachments, MailingType.MailBlindCarbonCopy);
-                Mvc.Mailer.SendMail(mailWrapper, false);
+                attachments[0].Name = AppConfig.Config.EmailAttachmentName+".xls";
+                string[] employeeEmails = new string[1];
+                employeeEmails[0] = selectedEmployeesForPayment.FirstOrDefault().Email;
+                MailSendingWrapper mailWrapper = Mvc.Mailer.GetMailSendingWrapper(employeeEmails, emailInfo.EmailSubject, emailInfo.EmailBody, null, attachments, MailingType.MailBlindCarbonCopy);
+                foreach (var employee in selectedEmployeesForPayment) {
+                    employeeEmails[0] = employee.Email;
+                    mailWrapper = Mvc.Mailer.GetMailSendingWrapper(employeeEmails, emailInfo.EmailSubject, emailInfo.EmailBody.Replace("$name", employee.Name), null, attachments, MailingType.MailBlindCarbonCopy);
+                    Mvc.Mailer.SendMail(mailWrapper, false);
+                }
                 mailWrapper.MailMessage.Dispose();
                 mailWrapper.MailServer.Dispose();
                 attachments[0] = null;

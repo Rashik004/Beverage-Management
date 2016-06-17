@@ -36,7 +36,6 @@ namespace BeverageManagement {
                                 SiteName = "Site.com",
                                 DefaultBeveragePrice = 100,
                                 EmailAttachmentName = "Beverage Management History",
-                                EmailAttachmentPath = "Content/new.xlsx"
 
                             };
                             db.Configs.Add(_config);
