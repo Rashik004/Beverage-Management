@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System
 using System.Linq;
-using System.Web;
 using BeverageManagement.Models.EntityModel;
-using DevMvcComponent.Miscellaneous;
 using Excel=Microsoft.Office.Interop.Excel;
-using System.Web.Mvc;
 namespace BeverageManagement.BusinessLogic {
     public  class ExcelConversion {
         //public void Open(string localPath) {

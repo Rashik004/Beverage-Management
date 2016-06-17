@@ -1,5 +1,4 @@
-﻿using BeverageManagement.Models;
-using BeverageManagement.Models.EntityModel;
+﻿using BeverageManagement.Models.EntityModel;
 using DevMvcComponent.Pagination;
 using System;
 using System.Collections.Generic;
