@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using BeverageManagement.BusinessLogic;
 using BeverageManagement.Models.EntityModel;
-using BeverageManagement.ViewModel;
 
 namespace BeverageManagement.Controllers {
     public class HistoriesController : Controller {
@@ -48,15 +42,6 @@ namespace BeverageManagement.Controllers {
         }
 
 
-
-        //public ActionResult SeePastHistoryByDate() {
-        //    return View(db.Histories.Select(n => new EntryByDateView() {
-        //        Date = n.FirstOrDefault().Dated,
-        //        Count = n.Count()
-
-        //    }).ToList());
-        //}
-
         public ActionResult ByDate(DateTime? dated) {
             var datesList = _logic.GetHistoryDates();
             if (!dated.HasValue) {
@@ -69,7 +54,6 @@ namespace BeverageManagement.Controllers {
             ViewBag.datesList = datesList;
             ViewBag.dated = dated;
             return View(employeesHistory);
-            return HttpNotFound();
         }
         protected override void Dispose(bool disposing) {
             if (disposing) {

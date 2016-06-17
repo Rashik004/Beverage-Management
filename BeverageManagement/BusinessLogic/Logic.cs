@@ -3,10 +3,8 @@ using DevMvcComponent.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using BeverageManagement.ViewModel;
 using System.Data.Entity;
-using System.IO;
 
 namespace BeverageManagement.BusinessLogic
 {
@@ -108,15 +106,8 @@ namespace BeverageManagement.BusinessLogic
             histories = histories
                 .Include(n => n.Employee)
                 .OrderBy(n=>n.Employee.EmployeeID);
-            debug = histories.Count();
             return histories;
         }
 
-        public void DeleteAllFiles(string folderPath) {
-            var filePaths = Directory.GetFiles(folderPath);
-            foreach (var filePath in filePaths) {
-                File.Delete(filePath);
-            }
-        }
     }
 }
