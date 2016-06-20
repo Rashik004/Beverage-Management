@@ -221,6 +221,13 @@
     <Content Include="App_Data\BeverageManagement_log.ldf">
       <DependentUpon>BeverageManagement.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\bundles\css.css">
+      <DependentUpon>css.css.bundle</DependentUpon>
+    </Content>
+    <Content Include="Content\bundles\css.css.bundle" />
+    <Content Include="Content\bundles\css.min.css">
+      <DependentUpon>css.css</DependentUpon>
+    </Content>
     <Content Include="Content\css\bootstrap-datetimepicker-override.css" />
     <Content Include="Content\css\bootstrap-datetimepicker-override.min.css">
       <DependentUpon>bootstrap-datetimepicker-override.css</DependentUpon>
@@ -241,7 +248,6 @@
     <Content Include="Content\css\bootstrap-table.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
-    <Content Include="Content\css\---bootstrap.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\TinyMce\Skins\lightgray\content.inline.min.css" />
     <Content Include="Content\TinyMce\Skins\lightgray\content.min.css" />
@@ -308,7 +314,6 @@
     <Content Include="Content\css\bootstrap-datetimepicker-override.css.map">
       <DependentUpon>bootstrap-datetimepicker-override.css</DependentUpon>
     </Content>
-    <Content Include="Content\new.xlsx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -646,7 +651,6 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

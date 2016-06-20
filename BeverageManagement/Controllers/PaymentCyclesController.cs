@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -75,20 +76,20 @@ namespace BeverageManagement.Controllers {
             var attachmentFilePathAndName = folderPath + timeStamp + ".xls";
             ExcelConversion historyExcelConversion = new ExcelConversion();
 
-            try {
-                historyExcelConversion.WriteToExcelFile(lastTwoYearsHistories, attachmentFilePathAndName);
-            } catch (Exception ex) {
-
-                throw ex;
-            }
-
+            historyExcelConversion.openExcelApp();
+            historyExcelConversion.InitializeColumnNumbers();
+            historyExcelConversion.InitializeHeader();
+            historyExcelConversion.BoldColumn(1);
+            historyExcelConversion.WriteToExcelFile(lastTwoYearsHistories);
+            historyExcelConversion.SaveAsAndQuit(attachmentFilePathAndName);
+            historyExcelConversion.Dispose();
 
             #endregion
 
             #region Thread for mailing and excel deletion
             var thread = new Thread(() => {
                 List<Attachment> attachments = new List<Attachment>() { new Attachment(attachmentFilePathAndName) };
-                attachments[0].Name = AppConfig.Config.EmailAttachmentName+".xls";
+                attachments[0].Name = AppConfig.Config.EmailAttachmentName + ".xls";
                 string[] employeeEmails = new string[1];
                 employeeEmails[0] = selectedEmployeesForPayment.FirstOrDefault().Email;
                 MailSendingWrapper mailWrapper = Mvc.Mailer.GetMailSendingWrapper(employeeEmails, emailInfo.EmailSubject, emailInfo.EmailBody, null, attachments, MailingType.MailBlindCarbonCopy);
@@ -102,10 +103,10 @@ namespace BeverageManagement.Controllers {
                 attachments[0] = null;
                 attachments = null;
                 GC.Collect();
-                historyExcelConversion.Dispose();
+                //historyExcelConversion.Dispose();
+                System.IO.File.Delete(attachmentFilePathAndName);
 
-
-            }); 
+            });
             #endregion
 
             thread.Start();

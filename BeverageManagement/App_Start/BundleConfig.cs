@@ -39,15 +39,15 @@ namespace BeverageManagement
                       cssPath + "custom-style.css",
                       cssPath + "site.css",
                       cssPath + "bootstrap-datetimepicker.min.css",
-                      cssPath + "bootstrap-datetimepicker-override.css",
-                      cssPath + "jquery-ui.min.css"));
+                      cssPath + "bootstrap-datetimepicker-override.css"
+                      ));
 
 #if DEBUG
             BundleTable.EnableOptimizations = false;
             bundles.UseCdn = false;
 #else
             BundleTable.EnableOptimizations = true;
-            bundles.UseCdn = true;
+            //bundles.UseCdn = true;
 #endif
 
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using BeverageManagement.Models.EntityModel;
 using Excel=Microsoft.Office.Interop.Excel;
@@ -7,58 +6,80 @@ namespace BeverageManagement.BusinessLogic {
     public  class ExcelConversion {
         private Excel.Workbook _myBook;
         private Excel.Application _myApp;
-        private string _filePath;
-        public void WriteToExcelFile(IQueryable<History> histories, string excelFilePathAndName) {
-            _filePath = excelFilePathAndName;
-            object misValue = System.Reflection.Missing.Value;
+        private object _misValue;
+        private int _employeeNameColumn;
+        private int _dateColumn;
+        private int _amountOfPaymentColumn;
+        private int _numberOfPaymentColumn;
+
+        public void openExcelApp() {
+            _misValue = System.Reflection.Missing.Value;
             _myApp = new Excel.Application();
-            _myBook= _myApp.Workbooks.Add(misValue);
-            var mySheet = (Excel.Worksheet) _myBook.Sheets[1]; 
-            var currenRow = 1;
-            var lastEmployeeId = histories.FirstOrDefault().Employee.EmployeeID;
-            int lastNameRow = 2, totalAmount = 0, numberOfPayment = 0;
+            _myBook = _myApp.Workbooks.Add(_misValue);
+        }
+
+        public void InitializeColumnNumbers(int employeeNameColumn=1, int dateColumn=2, int amountOfPaymentColumn=3, int numberOfPaymentColumn=4) {
+            _employeeNameColumn = employeeNameColumn;
+            _dateColumn = dateColumn;
+            _amountOfPaymentColumn = amountOfPaymentColumn;
+            _numberOfPaymentColumn = numberOfPaymentColumn;
+        }
+
+        public void InitializeHeader(string column1Header = "Employee Name", string column2Header = "Date", string column3Header = "Amount of Payment", string column4Header = "Number of payment") {
+            var currentWorksheet = (Excel.Worksheet) _myBook.Sheets[1]; 
+
+            currentWorksheet.Cells[1, _employeeNameColumn] = column1Header;
+            currentWorksheet.Cells[1, _dateColumn] = column2Header;
+            currentWorksheet.Cells[1, _amountOfPaymentColumn] = column3Header;
+            currentWorksheet.Cells[1, _numberOfPaymentColumn] = column4Header;
+        }
+
+        public void BoldColumn(int column) {
+            var currentWorksheet = (Excel.Worksheet) _myBook.Sheets[1]; 
+            currentWorksheet.Cells[1, column].EntireColumn.Font.Bold = true;
             
-            mySheet.UsedRange.ClearContents();
-            mySheet.Cells[currenRow, 1] = "Employee Name";
-            mySheet.Cells[currenRow, 2] = "Date";
-            mySheet.Cells[currenRow, 3] = "Total Paid";
-            mySheet.Cells[currenRow, 4] = "Number of payment";
-            mySheet.Cells[currenRow, 1].EntireColumn.Font.Bold=true;
-            currenRow++;
+        }
+
+        public void WriteToExcelFile(IQueryable<History> histories) {
+            var mySheet = (Excel.Worksheet) _myBook.Sheets[1]; 
+            var currenRow = 2;
+            var lastEmployeeId = histories.FirstOrDefault().Employee.EmployeeID;
             
             foreach (var history in histories) {
                 if (currenRow == 2) 
                 {
-                    mySheet.Cells[currenRow, 1] = history.Employee.Name;
-                    mySheet.Cells[currenRow, 4] = history.Employee.Cycle;
+                    mySheet.Cells[currenRow, _employeeNameColumn] = history.Employee.Name;
+                    mySheet.Cells[currenRow, _numberOfPaymentColumn] = history.Employee.Cycle;
                 }
                 else if (lastEmployeeId != history.Employee.EmployeeID) 
                 {
                     currenRow++;
                     lastEmployeeId = history.Employee.EmployeeID;
-                    mySheet.Cells[currenRow, 1] = history.Employee.Name;
-                    mySheet.Cells[currenRow, 4] = history.Employee.Cycle;
+                    mySheet.Cells[currenRow, _employeeNameColumn] = history.Employee.Name;
+                    mySheet.Cells[currenRow, _numberOfPaymentColumn] = history.Employee.Cycle;
                 }
 
                 string debug = history.Dated.ToString("dd-MMM-yy");
-                mySheet.Cells[currenRow, 2] = debug;
-                mySheet.Cells[currenRow, 3] = history.Amount;
+                mySheet.Cells[currenRow, _dateColumn] = debug;
+                mySheet.Cells[currenRow, _amountOfPaymentColumn] = history.Amount;
                 
                 currenRow++;
             }
-            _myBook.SaveAs(excelFilePathAndName, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+
+        }
+
+        public void SaveAsAndQuit(string excelFilePathAndName) {
+            _myBook.SaveAs(excelFilePathAndName, Excel.XlFileFormat.xlWorkbookNormal, _misValue, _misValue, _misValue, _misValue, Excel.XlSaveAsAccessMode.xlExclusive, _misValue, _misValue, _misValue, _misValue, _misValue);
             foreach (Excel.Workbook workbook in _myApp.Workbooks) {
                 workbook.Close(0);
             }
             _myApp.Quit();
+            _myApp = null;
 
         }
 
+        public void Dispose() {
 
-
-        private void CloseFile() {
-
-            _myApp = null;
             var process = System.Diagnostics.Process.GetProcessesByName("Excel");
             foreach (var p in process) {
                 if (!string.IsNullOrEmpty(p.ProcessName)) {
@@ -70,11 +91,6 @@ namespace BeverageManagement.BusinessLogic {
                 }
             }
             GC.Collect();
-        }
-
-        public void Dispose() {
-            CloseFile();
-            File.Delete(_filePath);
         }
 
     }
