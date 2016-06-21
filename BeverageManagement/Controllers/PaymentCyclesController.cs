@@ -76,13 +76,15 @@ namespace BeverageManagement.Controllers {
             var attachmentFilePathAndName = folderPath + timeStamp + ".xls";
             ExcelConversion historyExcelConversion = new ExcelConversion();
 
-            historyExcelConversion.openExcelApp();
+            #region Excel Create+Save+close App
+            historyExcelConversion.OpenExcelApp();
             historyExcelConversion.InitializeColumnNumbers();
             historyExcelConversion.InitializeHeader();
             historyExcelConversion.BoldColumn(1);
             historyExcelConversion.WriteToExcelFile(lastTwoYearsHistories);
             historyExcelConversion.SaveAsAndQuit(attachmentFilePathAndName);
-            historyExcelConversion.Dispose();
+            historyExcelConversion.Dispose(); 
+            #endregion
 
             #endregion
 
@@ -91,7 +93,7 @@ namespace BeverageManagement.Controllers {
                 List<Attachment> attachments = new List<Attachment>() { new Attachment(attachmentFilePathAndName) };
                 attachments[0].Name = AppConfig.Config.EmailAttachmentName + ".xls";
                 string[] employeeEmails = new string[1];
-                employeeEmails[0] = selectedEmployeesForPayment.FirstOrDefault().Email;
+                employeeEmails[0] = "a_thoi@gmail.com";
                 MailSendingWrapper mailWrapper = Mvc.Mailer.GetMailSendingWrapper(employeeEmails, emailInfo.EmailSubject, emailInfo.EmailBody, null, attachments, MailingType.MailBlindCarbonCopy);
                 foreach (var employee in selectedEmployeesForPayment) {
                     employeeEmails[0] = employee.Email;
@@ -103,7 +105,6 @@ namespace BeverageManagement.Controllers {
                 attachments[0] = null;
                 attachments = null;
                 GC.Collect();
-                //historyExcelConversion.Dispose();
                 System.IO.File.Delete(attachmentFilePathAndName);
 
             });
