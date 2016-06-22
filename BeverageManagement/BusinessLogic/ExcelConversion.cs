@@ -4,17 +4,15 @@ using BeverageManagement.Models.EntityModel;
 using Excel=Microsoft.Office.Interop.Excel;
 namespace BeverageManagement.BusinessLogic {
     public  class ExcelConversion {
-        #region Attributes
         private Excel.Workbook _myBook;
         private Excel.Application _myApp;
         private object _misValue;
         private int _employeeNameColumn;
         private int _dateColumn;
         private int _amountOfPaymentColumn;
-        private int _numberOfPaymentColumn; 
-        #endregion
+        private int _numberOfPaymentColumn;
 
-        public void OpenExcelApp() {
+        public void openExcelApp() {
             _misValue = System.Reflection.Missing.Value;
             _myApp = new Excel.Application();
             _myBook = _myApp.Workbooks.Add(_misValue);
@@ -45,32 +43,29 @@ namespace BeverageManagement.BusinessLogic {
         public void WriteToExcelFile(IQueryable<History> histories) {
             var mySheet = (Excel.Worksheet) _myBook.Sheets[1]; 
             var currenRow = 2;
-
-            var firstOrDefault = histories.FirstOrDefault();
-            if (firstOrDefault != null) {
-                var lastEmployeeId = firstOrDefault.Employee.EmployeeID;
+            var lastEmployeeId = histories.FirstOrDefault().Employee.EmployeeID;
             
-                foreach (var history in histories) {
-                    if (currenRow == 2) 
-                    {
-                        mySheet.Cells[currenRow, _employeeNameColumn] = history.Employee.Name;
-                        mySheet.Cells[currenRow, _numberOfPaymentColumn] = history.Employee.Cycle;
-                    }
-                    else if (lastEmployeeId != history.Employee.EmployeeID) 
-                    {
-                        currenRow++;
-                        lastEmployeeId = history.Employee.EmployeeID;
-                        mySheet.Cells[currenRow, _employeeNameColumn] = history.Employee.Name;
-                        mySheet.Cells[currenRow, _numberOfPaymentColumn] = history.Employee.Cycle;
-                    }
-
-                    string debug = history.Dated.ToString("dd-MMM-yy");
-                    mySheet.Cells[currenRow, _dateColumn] = debug;
-                    mySheet.Cells[currenRow, _amountOfPaymentColumn] = history.Amount;
-                
-                    currenRow++;
+            foreach (var history in histories) {
+                if (currenRow == 2) 
+                {
+                    mySheet.Cells[currenRow, _employeeNameColumn] = history.Employee.Name;
+                    mySheet.Cells[currenRow, _numberOfPaymentColumn] = history.Employee.Cycle;
                 }
+                else if (lastEmployeeId != history.Employee.EmployeeID) 
+                {
+                    currenRow++;
+                    lastEmployeeId = history.Employee.EmployeeID;
+                    mySheet.Cells[currenRow, _employeeNameColumn] = history.Employee.Name;
+                    mySheet.Cells[currenRow, _numberOfPaymentColumn] = history.Employee.Cycle;
+                }
+
+                string debug = history.Dated.ToString("dd-MMM-yy");
+                mySheet.Cells[currenRow, _dateColumn] = debug;
+                mySheet.Cells[currenRow, _amountOfPaymentColumn] = history.Amount;
+                
+                currenRow++;
             }
+
         }
 
         public void SaveAsAndQuit(string excelFilePathAndName) {
