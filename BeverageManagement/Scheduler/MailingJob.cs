@@ -32,7 +32,7 @@ namespace BeverageManagement.Scheduler {
                         commaSeperatedNames += ", ";
                     commaSeperatedNames += name;
                 }
-                Mvc.Mailer.QuickSend("rashikcse2k11@gmail.com", "hi!! mail sending reminder", "we'll be sending mails to the employees(" + commaSeperatedNames+") selected for beverage payment this week.", isAsync: false);
+                Mvc.Mailer.QuickSend(AppConfig.Config.AdminEmails, "hi!! mail sending reminder", "New employees (" + commaSeperatedNames+") has been selected for beverage payment this week. Please confirm there payment by going to the beverage management site.", isAsync: false);
                 // Do work, son!
             }
         }
