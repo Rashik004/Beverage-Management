@@ -49,7 +49,7 @@ namespace BeverageManagement.Controllers {
         public ActionResult ProcessPayment(EmailDetailViewModel emailInfo) {
             var selectedEmployeesForPayment = (List<Employee>) TempData["SelectedEmployees"];
             emailInfo.EmailBody = emailInfo.EmailBody.Replace("$amount", AppConfig.Config.DefaultBeveragePrice.ToString());
-            
+
             foreach (var employee in selectedEmployeesForPayment) {
                 employee.Cycle = employee.Cycle + 1;
                 employee.LastPaymentDate = DateTime.Now;
@@ -68,23 +68,12 @@ namespace BeverageManagement.Controllers {
             } catch {
                 throw new Exception("We can't save the modified data.");
             }
-
-            #region Excel file Creation
-            var lastTwoYearsHistories = _logic.GetLastTwoYearsHistories(DateTime.Now);
             string timeStamp = DateTime.Now.ToString("dd_MMM_yy_h_mm_ss_tt");
             string folderPath = DirectoryExtension.GetBaseOrAppDirectory() + "ExcelFiles\\";
             var attachmentFilePathAndName = folderPath + timeStamp + ".xls";
-            ExcelConversion historyExcelConversion = new ExcelConversion();
+            var lastTwoYearsHistories = _logic.GetLastTwoYearsHistories(DateTime.Now);
 
-            historyExcelConversion.openExcelApp();
-            historyExcelConversion.InitializeColumnNumbers();
-            historyExcelConversion.InitializeHeader();
-            historyExcelConversion.BoldColumn(1);
-            historyExcelConversion.WriteToExcelFile(lastTwoYearsHistories);
-            historyExcelConversion.SaveAsAndQuit(attachmentFilePathAndName);
-            historyExcelConversion.Dispose();
-
-            #endregion
+            ExcelFileCreation(lastTwoYearsHistories, attachmentFilePathAndName);
 
             #region Thread for mailing and excel deletion
             var thread = new Thread(() => {
@@ -115,6 +104,16 @@ namespace BeverageManagement.Controllers {
         }
         #endregion
 
+        private void ExcelFileCreation(IQueryable<History> histories, string excelFilePathAndName) {
+            ExcelConversion historyExcelConversion = new ExcelConversion();
+            historyExcelConversion.OpenExcelApp();
+            historyExcelConversion.InitializeColumnNumbers();
+            historyExcelConversion.InitializeHeader();
+            historyExcelConversion.BoldColumn(1);
+            historyExcelConversion.WriteToExcelFile(histories);
+            historyExcelConversion.SaveAsAndQuit(excelFilePathAndName);
+            historyExcelConversion.Dispose();
+        }
         #region Index or List methods
         public ActionResult Index(int page = 1) {
 
@@ -127,7 +126,7 @@ namespace BeverageManagement.Controllers {
                                     .OrderBy(e => e.Dated)
                                     .GetPageData(pageInfo).ToList();
 
-            ViewBag.paginationHtml = new MvcHtmlString(Pagination.GetList(pageInfo, url: "?page=@page", maxNumbersOfPagesShow:8));
+            ViewBag.paginationHtml = new MvcHtmlString(Pagination.GetList(pageInfo, url: "?page=@page", maxNumbersOfPagesShow: 8));
 
             return View(employeePaymentHistory);
         }

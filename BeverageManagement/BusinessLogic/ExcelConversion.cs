@@ -12,7 +12,7 @@ namespace BeverageManagement.BusinessLogic {
         private int _amountOfPaymentColumn;
         private int _numberOfPaymentColumn;
 
-        public void openExcelApp() {
+        public void OpenExcelApp() {
             _misValue = System.Reflection.Missing.Value;
             _myApp = new Excel.Application();
             _myBook = _myApp.Workbooks.Add(_misValue);
