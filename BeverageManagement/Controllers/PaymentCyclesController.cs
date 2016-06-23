@@ -92,7 +92,6 @@ namespace BeverageManagement.Controllers {
                 attachments[0] = null;
                 attachments = null;
                 GC.Collect();
-                //historyExcelConversion.Dispose();
                 System.IO.File.Delete(attachmentFilePathAndName);
 
             });
