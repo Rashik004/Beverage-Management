@@ -22,7 +22,6 @@ namespace BeverageManagement.Scheduler {
                 if (_shuttingDown)
                     return;
                 _logic = new Logic(new BeverageManagementEntities());
-                //int a = ;
                 bool over = true;
                 var selectedEmployeesForPayment = _logic.GetFinalSelectedEmployeesForCycle(AppConfig.Config.PerCyclePerson, AppConfig.Config.CurrentRunningCycle, out over);
                 var names = selectedEmployeesForPayment.Select(n => n.Name).ToList();
