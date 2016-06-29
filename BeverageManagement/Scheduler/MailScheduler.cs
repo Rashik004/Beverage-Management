@@ -14,7 +14,7 @@ namespace BeverageManagement.BusinessLogic
     public class MailScheduler : Registry
     { 
         public MailScheduler() {
-            Schedule<MailingJob>().ToRunNow().AndEvery(1).Weeks().On(DayOfWeek.Thursday).At(12,0);
+            Schedule<MailingJob>().ToRunEvery(1).Weeks().On(DayOfWeek.Thursday).At(12,0);
         }
     }
 }

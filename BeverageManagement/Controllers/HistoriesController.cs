@@ -5,6 +5,7 @@ using BeverageManagement.BusinessLogic;
 using BeverageManagement.Models.EntityModel;
 
 namespace BeverageManagement.Controllers {
+    [Authorize] // authentication or login : must login
     public class HistoriesController : Controller {
         private BeverageManagementEntities db = new BeverageManagementEntities();
         private Logic _logic;
