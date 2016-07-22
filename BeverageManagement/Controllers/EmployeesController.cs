@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using BeverageManagement.Models.EntityModel;
 namespace BeverageManagement.Controllers
 {
-    [Authorize] // authentication or login : must login
+    [Authorize]
     public class EmployeesController : Controller
     {
         private BeverageManagementEntities db = new BeverageManagementEntities();
