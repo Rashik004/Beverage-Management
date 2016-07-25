@@ -221,12 +221,18 @@
     <Content Include="App_Data\BeverageManagement_log.ldf">
       <DependentUpon>BeverageManagement.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\bundles\styles.css">
+      <DependentUpon>styles.css.bundle</DependentUpon>
+    </Content>
     <Content Include="Content\bundles\styles.css.bundle" />
     <Content Include="Content\bundles\javascripts.js">
       <DependentUpon>javascripts.js.bundle</DependentUpon>
     </Content>
     <Content Include="Content\bundles\javascripts.min.js">
       <DependentUpon>javascripts.js</DependentUpon>
+    </Content>
+    <Content Include="Content\bundles\styles.min.css">
+      <DependentUpon>styles.css</DependentUpon>
     </Content>
     <Content Include="Content\css\bootstrap-datetimepicker-override.css" />
     <Content Include="Content\css\bootstrap-datetimepicker-override.min.css">
