@@ -258,7 +258,6 @@
     <Content Include="MailTemplate\mailToAdmin.html" />
     <Content Include="Content\css\bootstrap-table.css" />
     <Content Include="Content\css\bootstrap-table.min.css" />
-    <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\TinyMce\Skins\lightgray\content.inline.min.css" />
