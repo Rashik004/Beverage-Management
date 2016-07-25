@@ -221,6 +221,12 @@
     <Content Include="App_Data\BeverageManagement_log.ldf">
       <DependentUpon>BeverageManagement.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\bundles\jquery-validations.js">
+      <DependentUpon>jquery-validations.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Content\bundles\jquery-validations.min.js">
+      <DependentUpon>jquery-validations.js</DependentUpon>
+    </Content>
     <Content Include="Content\bundles\styles.css">
       <DependentUpon>styles.css.bundle</DependentUpon>
     </Content>
@@ -324,16 +330,20 @@
     <Content Include="Content\bundles\javascripts.min.js.map">
       <DependentUpon>javascripts.min.js</DependentUpon>
     </Content>
+    <Content Include="Content\bundles\jquery-validations.js.bundle" />
+    <Content Include="Content\bundles\jquery-validations.min.js.map">
+      <DependentUpon>jquery-validations.min.js</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <None Include="Scripts\jquery\jquery-2.2.4.intellisense.js" />
+    <Content Include="Scripts\jquery\jquery-2.2.4.js" />
+    <Content Include="Scripts\jquery\jquery-2.2.4.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\respond.js" />
@@ -607,7 +617,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
