@@ -314,6 +314,7 @@
     <Content Include="Content\css\bootstrap-datetimepicker-override.css.map">
       <DependentUpon>bootstrap-datetimepicker-override.css</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
