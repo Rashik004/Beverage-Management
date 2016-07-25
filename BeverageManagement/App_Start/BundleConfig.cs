@@ -1,12 +1,9 @@
 ﻿using System.Web.Optimization;
 
-namespace BeverageManagement
-{
-    public class BundleConfig
-    {
+namespace BeverageManagement {
+    public class BundleConfig {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
-        public static void RegisterBundles(BundleCollection bundles)
-        {
+        public static void RegisterBundles(BundleCollection bundles) {
 
             var cssPath = "~/Content/css/";
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -21,35 +18,39 @@ namespace BeverageManagement
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+#if DEBUG
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootstrap-table.js",
                       "~/Scripts/bootstrap-table-filter.js",
                       "~/Scripts/bootstrap-table-export.js",
-                       "~/Content/TinyMce/tinymce.min.js",
-                       "~/Scripts/moment.js",
-                       "~/Scripts/bootstrap-datetimepicker.min.js",
+                      "~/Content/TinyMce/tinymce.min.js",
+                      "~/Scripts/moment.js",
+                      "~/Scripts/bootstrap-datetimepicker.min.js",
                       "~/Scripts/Custom.js",
                       "~/Scripts/respond.js"));
-
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      cssPath + "bootstrap.min.css",
-                      cssPath + "bootstrap-table.css",
-                      cssPath + "font-awesome.css",
-                      cssPath + "custom-style.css",
-                      cssPath + "site.css",
-                      cssPath + "bootstrap-datetimepicker.min.css",
-                      cssPath + "bootstrap-datetimepicker-override.css"
-                      ));
-
-#if DEBUG
+              cssPath + "bootstrap.min.css",
+              cssPath + "bootstrap-table.css",
+              cssPath + "font-awesome.css",
+              cssPath + "custom-style.css",
+              cssPath + "site.css",
+              cssPath + "bootstrap-datetimepicker.min.css",
+              cssPath + "bootstrap-datetimepicker-override.css"
+              ));
             BundleTable.EnableOptimizations = false;
             bundles.UseCdn = false;
 #else
-            BundleTable.EnableOptimizations = true;
-            //bundles.UseCdn = true;
-#endif
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                      "~/Content/bundles/javascripts.min.js"));
 
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+              "~/Content/bundles/styles.min.css"
+            ));
+
+            BundleTable.EnableOptimizations = true;
+            bundles.UseCdn = true;
+#endif
 
         }
     }

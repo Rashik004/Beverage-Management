@@ -221,12 +221,12 @@
     <Content Include="App_Data\BeverageManagement_log.ldf">
       <DependentUpon>BeverageManagement.mdf</DependentUpon>
     </Content>
-    <Content Include="Content\bundles\css.css">
-      <DependentUpon>css.css.bundle</DependentUpon>
+    <Content Include="Content\bundles\styles.css.bundle" />
+    <Content Include="Content\bundles\javascripts.js">
+      <DependentUpon>javascripts.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Content\bundles\css.css.bundle" />
-    <Content Include="Content\bundles\css.min.css">
-      <DependentUpon>css.css</DependentUpon>
+    <Content Include="Content\bundles\javascripts.min.js">
+      <DependentUpon>javascripts.js</DependentUpon>
     </Content>
     <Content Include="Content\css\bootstrap-datetimepicker-override.css" />
     <Content Include="Content\css\bootstrap-datetimepicker-override.min.css">
@@ -313,6 +313,10 @@
     <Content Include="Content\less\bootstrap-datetimepicker-override.less" />
     <Content Include="Content\css\bootstrap-datetimepicker-override.css.map">
       <DependentUpon>bootstrap-datetimepicker-override.css</DependentUpon>
+    </Content>
+    <Content Include="Content\bundles\javascripts.js.bundle" />
+    <Content Include="Content\bundles\javascripts.min.js.map">
+      <DependentUpon>javascripts.min.js</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
