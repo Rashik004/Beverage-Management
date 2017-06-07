@@ -26,6 +26,8 @@ namespace BeverageManagement.Controllers
         {
             try
             {
+                ModelState.Remove("LastPaymentDate");
+                employee.LastPaymentDate = DateTime.Now.AddYears(-1);
                 if (ModelState.IsValid)
                 {
                     db.Employees.Add(employee);

@@ -5,7 +5,9 @@
 }
 
 <h2>Create</h2>
-
+@{
+    var lastPayment = DateTime.Now.AddYears(-1);
+}
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -55,7 +57,7 @@
                 @Html.ValidationMessageFor(model => model.JoiningDate, "", new { @class = "text-danger" })
             </div>
         </div>
-        @Html.HiddenFor(model => model.LastPaymentDate, new {@value=DateTime.Now.AddYears(-1)})
+        @Html.HiddenFor(model => model.LastPaymentDate, new {@value= lastPayment.ToString("dd/MM/yyyy") })
 
         
         <div class="form-group">

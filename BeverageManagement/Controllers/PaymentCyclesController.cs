@@ -50,11 +50,15 @@ namespace BeverageManagement.Controllers {
             var selectedEmployeesForPayment = (List<Employee>) TempData["SelectedEmployees"];
             emailInfo.EmailBody = emailInfo.EmailBody.Replace("$amount", AppConfig.Config.DefaultBeveragePrice.ToString());
 
-            foreach (var employee in selectedEmployeesForPayment) {
-                employee.Cycle = employee.Cycle + 1;
-                employee.LastPaymentDate = DateTime.Now;
+            foreach (var employee in selectedEmployeesForPayment)
+            {
+                var dbEmployee = db.Employees.FirstOrDefault(e => e.EmployeeID == employee.EmployeeID);
+                if(dbEmployee == null)
+                    continue;
+                dbEmployee.Cycle = employee.Cycle + 1;
+                dbEmployee.LastPaymentDate = DateTime.Now;
                 if (ModelState.IsValid) {
-                    db.Entry(employee).State = System.Data.Entity.EntityState.Modified;
+                    db.Entry(dbEmployee).State = System.Data.Entity.EntityState.Modified;
                     History history = new History();
                     history.EmployeeID = employee.EmployeeID;
                     history.Dated = DateTime.Now;
@@ -82,17 +86,28 @@ namespace BeverageManagement.Controllers {
                 string[] employeeEmails = new string[1];
                 employeeEmails[0] = selectedEmployeesForPayment.FirstOrDefault().Email;
                 MailSendingWrapper mailWrapper = Mvc.Mailer.GetMailSendingWrapper(employeeEmails, emailInfo.EmailSubject, emailInfo.EmailBody, null, attachments, MailingType.MailBlindCarbonCopy);
-                foreach (var employee in selectedEmployeesForPayment) {
-                    employeeEmails[0] = employee.Email;
-                    mailWrapper = Mvc.Mailer.GetMailSendingWrapper(employeeEmails, emailInfo.EmailSubject, emailInfo.EmailBody.Replace("$name", employee.Name), null, attachments, MailingType.MailBlindCarbonCopy);
-                    Mvc.Mailer.SendMail(mailWrapper, false);
-                }
-                mailWrapper.MailMessage.Dispose();
-                mailWrapper.MailServer.Dispose();
-                attachments[0] = null;
-                attachments = null;
-                GC.Collect();
-                System.IO.File.Delete(attachmentFilePathAndName);
+                                              try
+                                              {
+                                                  foreach (var employee in selectedEmployeesForPayment)
+                                                  {
+                                                      employeeEmails[0] = employee.Email;
+                                                      mailWrapper = Mvc.Mailer.GetMailSendingWrapper(employeeEmails, emailInfo.EmailSubject, emailInfo.EmailBody.Replace("$name", employee.Name), null, attachments,
+                                                          MailingType.MailBlindCarbonCopy);
+                                                      Mvc.Mailer.SendMail(mailWrapper, false);
+                                                  }
+                                              }
+                                              catch (Exception ex)
+                                              {}
+                                              finally
+                                              {
+                                                  mailWrapper.MailMessage.Dispose();
+                                                  mailWrapper.MailServer.Dispose();
+                                                  attachments[0] = null;
+                                                  attachments = null;
+                                                  GC.Collect();
+                                                  System.IO.File.Delete(attachmentFilePathAndName);
+                                              }
+
 
             });
             #endregion
